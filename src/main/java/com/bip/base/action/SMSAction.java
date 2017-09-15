@@ -17,12 +17,23 @@ import java.io.PrintWriter;
 
 public class SMSAction extends ActionSupport{
     protected static Logger log = Logger.getLogger(SMSAction.class);
-    private HttpServletRequest request = ServletActionContext.getRequest();
-    private HttpServletResponse response = ServletActionContext.getResponse();
-    private Message message = new Message();
-
-    public String sendXcode() {
-        String phone = request.getParameter("tels");
+    private String tels;
+    private String xcode;
+	private Message message = new Message();
+    public void setTels(String tels) {
+		this.tels = tels;
+	}
+	public void setXcode(String xcode) {
+		this.xcode = xcode;
+	}
+    public Message getMessage() {
+		return message;
+	}
+	public void setMessage(Message message) {
+		this.message = message;
+	}
+	public String sendXcode() {
+        String phone = tels;
         String result = XcodeValidTool.getXcode(phone);
         if (result.startsWith("success")) {
         	message.setErrmsg("发送成功，请注意查收短信！");
@@ -36,12 +47,9 @@ public class SMSAction extends ActionSupport{
     }
 
     public String checkXcode() {
-            String phone = request.getParameter("tels");
-            String xcode = request.getParameter("xcode");
+            String phone = tels;
             String xcode1 = RedisHelper.get(phone);
             long tmOut = RedisHelper.getTtl(phone);
-            response.setHeader("Access-Control-Allow-Origin", "*");
-            response.setContentType("application/json; charset=utf-8");
             if(tmOut>0){
                 if (xcode.equals(xcode1)) {
                     log.info("验证码通过");
@@ -49,14 +57,14 @@ public class SMSAction extends ActionSupport{
                     message.setErrcode("0");
                 } else {
                     log.info("验证码不通过");
-                    message.setErrmsg("验证码不通过！");
+                    message.setErrmsg("验证码输入错误!");
                     message.setErrcode("-1");
 
                 }
             }else {
                 log.info("请重新获取注册码！");
-                message.setErrmsg("请重新获取注册码！");
-                message.setErrcode("-1");
+                message.setErrmsg("请重新获取注册码!");
+                message.setErrcode("-2");
             }
         return "msg";
     }

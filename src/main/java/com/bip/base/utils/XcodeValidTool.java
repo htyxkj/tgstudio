@@ -18,10 +18,10 @@ public class XcodeValidTool {
 		String conKey = CON+phone;
 		RedisHelper.set(conKey,conKey);
 		String xcode = createRandom(true, 5);
-//		String result = SendIM(phon,xcode);
-		String result = "success:ok";
+		String result = SendIM(phone,xcode);
+//		String result = "success:ok";
 		if(result.startsWith("success")){
-			RedisHelper.set(phone,xcode,20);
+			RedisHelper.set(phone,xcode,6000);
 		}
 		return result;
 

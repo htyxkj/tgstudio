@@ -28,45 +28,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 alert("请输入验证码!");
 				 return;
 			 }
-			 var data={'statuscode':'verification','tel':tel,'code':code};
+			 var data={'tels':tel,'xcode':code};
 			 $.ajax({
 				type: 'post',
-				url: "VerificationServlet",
+				url: "ckxcode",
 				data: data,
 				contentType: 'application/x-www-form-urlencoded',
 				dataType: 'json',
 				async: false,
 				success: function (data) {
 					if(data.errcode==0){
-						$("#form").submit();
-					}else if(data.errcode==1){
-						alert("验证码输入错误");
+						alert("验证码输入正确");
+					}else{
+						alert(errcode);
 					}
 				}
 			 });
 		 }
 		 function getcode(){
-			  	data={'tels':'13051424475'};
+			var tel=$("#tel").val();
+		 	if(selectTel(tel)){
+			  	data={'tels':tel};
 				$.ajax({
 					type: 'post',
-					url: "http://115.28.191.203:8080/ssms/xcode",
+					url: "xcode",
 					data:data,
 					contentType: 'application/x-www-form-urlencoded',
 					dataType: 'json',
 					async: true,
 					success: function (data) { 
-					  alert(data.type); 
+					  	alert(data.errcode);
 					}
 		        })
-			}
-		 function selectTel(tel){
-			 
+		 	}
+		}
+		function selectTel(tel){
+			 return true;
 		 }
     </script>
     </head>
     <body style="margin:0px;padding:0px;">
     	<img src="./img/quge.png" style="z-index:-10; margin: 0px;padding:0px;width:100%;">
-    	<div style="width:70%;position:absolute;left:15%;top:25%">
+    	<div style="width:70%;position:absolute;left:15%;top:28%">
 			<form id="form" action="#" name="f" method="post">
 				<div class="input_outer">
 					<span class="u_user"></span>
@@ -78,7 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input id="code" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;width: 60%;"value="" type="text" placeholder="请输入验证码">
 					</div>
 					<div style="float:left;width:30%;padding-left:6px;">
-						<a class="act-but submit" style="margin:0px;"> 获取</a>
+						<a class="act-but submit" style="margin:0px;color:white;" onclick="javascript:getcode();"> 获取</a>
 					</div>
 				</div>
 				<div class="mb2" style="clear:both;"><a class="act-but submit" href="javascript:submit();" style="color: #FFFFFF">登录</a></div>
