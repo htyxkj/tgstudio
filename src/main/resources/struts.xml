@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.ui.theme" value="simple" />
+    <constant name="struts.i18n.reload" value="false" />
+
+	<package name="default" extends="json-default" namespace="/">
+		<action name="xcode" class="com.bip.base.action.SMSAction" method="sendXcode">
+			<result name="msg" type="json">
+				<param name="root">message</param>
+			</result>
+		</action>
+        <action name="ckxcode" class="com.bip.base.action.SMSAction" method="checkXcode"></action>
+        <!-- 验证码 -->
+        <action name="verification" class="org.business.action.VerificationAction" method="verification">
+        </action>
+        <!-- 客服 -->
+        <action name="service" class="org.business.action.ServiceAction" method="service">
+        	<result name="msg" type="json">
+				<param name="root">message</param>
+			</result>
+        </action>
+        <!-- 客服列表 -->
+        <action name="insorg" class="org.business.action.InsorgAction" method="insorg">
+        	<result name="insorg">jsp/service/service.jsp</result>
+        </action>
+        <!--  获取店铺信息  -->
+        <action name="contact" class="org.business.action.ContactAction" method="contact">
+        	<result name="contact">jsp/contact/Contact.jsp</result>
+        </action>
+        <!--  一键拨号  -->
+        <action name="call" class="org.business.action.CallAction" method="call">
+        	<result name="call">jsp/call/Call.jsp</result>
+        </action>
+        <!--  url认证  -->
+        <action name="core" class="org.core.action.CoreAction" method="coreRequest">
+        </action>
+    </package>
+</struts>
