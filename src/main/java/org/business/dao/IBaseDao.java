@@ -5,8 +5,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public interface IBaseDao<T> {
-	//»ñÈ¡Êı¾İ¿âÁ¬½Ó
+	//æ•°æ®åº“è¿æ¥
 	public Connection getConnection() throws Exception;
-	//¹Ø±ÕÊı¾İ¿âÁ¬½Ó
+	//å…³é—­è¿æ¥
 	public void closeAll(Connection connection,Statement statement,ResultSet resultSet)  throws Exception;
 }

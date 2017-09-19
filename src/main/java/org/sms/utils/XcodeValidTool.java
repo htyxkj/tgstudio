@@ -1,34 +1,48 @@
-package com.bip.base.utils;
-
-import org.apache.log4j.Logger;
-//import org.slf4j.LoggerFactory;
+package org.sms.utils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
-public class XcodeValidTool {
-//	private static final Logger log = (Logger) LoggerFactory.getLogger(XcodeValidTool.class);
-	public static final String CON="CON.";
-	protected static Logger log = Logger.getLogger(XcodeValidTool.class);
-	public static String getXcode(String phone){
-		String conKey = CON+phone;
-		RedisHelper.set(conKey,conKey);
-		String xcode = createRandom(true, 5);
-		String result = SendIM(phone,xcode);
-//		String result = "success:ok";
+public class XcodeValidTool extends Thread {
+	private static final Log log = LogFactory.getLog(XcodeValidTool.class);
+	public HashMap<String, String> _keycode = new HashMap<String, String>();
+	public HashMap<String, Long> _keycodeValidt = new HashMap<String, Long>();
+
+	public String getXcode(String phone,String content){
+		String xcode = SMSTool.createRandom(true, 5);
+		String phon = phone;
+		content=content.replaceAll("\\[code\\]", xcode);
+//		String result = SendIM(phon,content);
+		String result = "success:ok";
 		if(result.startsWith("success")){
-			RedisHelper.set(phone,xcode,6000);
+			if(_keycode.containsKey(phon)){
+				String xx = _keycode.get(phon);
+				_keycodeValidt.remove(phon+"_"+xx);
+			}
+			_keycode.put(phon, xcode);
+			Calendar c = Calendar.getInstance();
+			c.add(Calendar.MINUTE, 60000);
+			long edd = c.getTimeInMillis();
+			_keycodeValidt.put(phon + "_" + xcode, edd);
+
 		}
 		return result;
-
+		
 	}
-
-
-	public static String SendIM(String phonnum, String xcode) {
+	
+	
+	public static String SendIM(String phonnum, String content) {
 		// 连接超时及读取超时设置
 		System.setProperty("sun.net.client.defaultConnectTimeout", "30000"); // 连接超时：30秒
 		System.setProperty("sun.net.client.defaultReadTimeout", "30000"); // 读取超时：30秒
@@ -41,8 +55,8 @@ public class XcodeValidTool {
 		String password_md5 = "asdf12345"; // 密码
 		String mobile = phonnum; // 手机号,只发一个号码：13800000001。发多个号码：13800000001,13800000002,...N// 。使用半角逗号分隔。
 		String apikey = "84d49d09365e4dd5800c366c42ced943"; // apikey秘钥（请登录 http://m.5c.com.cn
-		// 短信平台-->账号管理-->我的信息 中复制apikey）
-		String content = "【糖果录音棚】您好，您的验证码是："+xcode+",验证码的有效时间为10分钟"; // 要发送的短信内容，特别注意：签名必须设置，网页验证码应用需要加添加【图形识别码】。
+							// 短信平台-->账号管理-->我的信息 中复制apikey）
+//		String content = "【华泰益兴科技】您好，您的验证码是："+xcode+",验证码的有效时间为10分钟"; // 要发送的短信内容，特别注意：签名必须设置，网页验证码应用需要加添加【图形识别码】。
 		try {
 
 			String contentUrlEncode = URLEncoder.encode(content, encode); // 对短信内容做Urlencode编码操作。注意：如
@@ -76,36 +90,43 @@ public class XcodeValidTool {
 		}
 		return "error:错误了;";
 	}
-
-	/**
-	 * 创建指定数量的随机字符串
-	 * @param numberFlag 是否是数字
-	 * @param length
-	 * @return
+	/***
+	 * 校验验证码是否过期线程，10秒执行一次
 	 */
-	public static String createRandom(boolean numberFlag, int length){
-		String retStr = "";
-		String strTable = numberFlag ? "1234567890" : "1234567890abcdefghijkmnpqrstuvwxyz";
-		int len = strTable.length();
-		boolean bDone = true;
-		do {
-			retStr = "";
-			int count = 0;
-			for (int i = 0; i < length; i++) {
-				double dblR = Math.random() * len;
-				int intR = (int) Math.floor(dblR);
-				char c = strTable.charAt(intR);
-				if (('0' <= c) && (c <= '9')) {
-					count++;
+	@Override
+	public void run() {
+		while(true){
+			if (_keycode.size() > 0) {
+				Iterator<Entry<String, Long>> iter = _keycodeValidt
+						.entrySet().iterator();
+				while (iter.hasNext()) {
+					Calendar c = Calendar.getInstance();
+					long eddx = c.getTimeInMillis();
+					Entry<String, Long> entry = iter.next();
+					String xcode = (String) entry.getKey();
+					long edd = entry.getValue();
+					long sub = eddx - edd;
+					if (sub >= 0) {
+						String phone = xcode.split("_")[0];
+						
+						_keycode.remove(phone);
+						//_keycodeValidt.remove(xcode);
+						log.info("移除验证码以后个数：" + _keycode.size());
+						iter.remove();
+					}
 				}
-				retStr += strTable.charAt(intR);
 			}
-			if (count >= 2) {
-				bDone = false;
+			try {
+				Thread.sleep(5000);
+				//log.info("验证码个数：" + _keycode.size());
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
-		} while (bDone);
-		log.info(retStr);
-		return retStr;
+		}
+	}
+	
+	public static long getNow(){
+		return Calendar.getInstance().getTimeInMillis();
 	}
 
 }

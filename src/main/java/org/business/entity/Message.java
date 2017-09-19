@@ -1,4 +1,4 @@
-package com.bip.base.entity;
+package org.business.entity;
 
 public class Message {
 	private String errcode;
@@ -15,4 +15,5 @@ public class Message {
 	public void setErrmsg(String errmsg) {
 		this.errmsg = errmsg;
 	}
+	
 }

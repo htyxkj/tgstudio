@@ -6,11 +6,13 @@ public class AccessToken {
     // 凭证有效时间，单位：秒  
     private int expiresIn;
     // 客户服务器地址
-    private String erviceURL;
+    private String serviceURL;
     // 客户服务号id
     private String appid;
     // 客户服务号开发者密码(AppSecret)
     private String appsecret;
+    // 数据库编号
+    private String dbid;
 	public String getToken() {
 		return token;
 	}
@@ -23,11 +25,11 @@ public class AccessToken {
 	public void setExpiresIn(int expiresIn) {
 		this.expiresIn = expiresIn;
 	}
-	public String getErviceURL() {
-		return erviceURL;
+	public String getServiceURL() {
+		return serviceURL;
 	}
-	public void setErviceURL(String erviceURL) {
-		this.erviceURL = erviceURL;
+	public void setServiceURL(String serviceURL) {
+		this.serviceURL = serviceURL;
 	}
 	public String getAppid() {
 		return appid;
@@ -40,5 +42,11 @@ public class AccessToken {
 	}
 	public void setAppsecret(String appsecret) {
 		this.appsecret = appsecret;
+	}
+	public String getDbid() {
+		return dbid;
+	}
+	public void setDbid(String dbid) {
+		this.dbid = dbid;
 	}
 }

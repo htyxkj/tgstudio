@@ -5,7 +5,7 @@ import org.business.entity.Tell;
 
 public interface ITellBiz {
 	/**
-	 * ��ѯ�绰����
+	 * 查询公司电话号码
 	 */
 	public Tell getOne() throws Exception;
 }

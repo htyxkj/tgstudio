@@ -4,7 +4,7 @@ import org.business.entity.Tell;
 
 public interface ITellDao {
 	/**
-	 * 查询电话号码
+	 * 鏌ヨ鍏徃鐢佃瘽鍙风爜
 	 */
 	public Tell selectOne() throws Exception;
 }

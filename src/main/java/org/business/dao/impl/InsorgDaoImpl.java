@@ -12,7 +12,7 @@ import org.business.entity.Insorg;
 
 public class InsorgDaoImpl extends BaseDaoImpl<Insorg> implements IInsorgDao {
 	
-	//��ȡȫ����΢�ſͷ��ĵ����б�
+	//查询微信客服
 	public List<Insorg> selectWxALl() throws Exception {
 		Connection connection = this.getConnection();
 		PreparedStatement statement = null;
@@ -35,7 +35,7 @@ public class InsorgDaoImpl extends BaseDaoImpl<Insorg> implements IInsorgDao {
 		}
 		return listI;
 	}
-	//��ȡȫ�������б�
+	//查询全部部门
 	public List<Insorg> selectALl() throws Exception {
 		Connection connection = this.getConnection();
 		PreparedStatement statement = null;

@@ -9,11 +9,11 @@ import org.business.entity.Insorg;
 
 public class InsorgBizImpl implements IInsorgBiz {
 	IInsorgDao insdao=new InsorgDaoImpl();
-	//��ȡȫ����΢�ſͷ��ĵ����б�
+	//查询微信客服
 	public List<Insorg> getWxALl() throws Exception {
 		return this.insdao.selectWxALl();
 	}
-	//��ȡȫ�������б�
+	//查询全部部门
 	public List<Insorg> getALl() throws Exception {
 		return this.insdao.selectALl();
 	}

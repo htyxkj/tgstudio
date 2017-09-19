@@ -5,8 +5,8 @@ import java.util.List;
 import org.business.entity.Insorg;
 
 public interface IInsorgBiz {
-	//获取全部有微信客服的店铺列表
+	//鏌ヨ寰俊瀹㈡湇
 	public List<Insorg> getWxALl()throws Exception;
-	//获取全部店铺列表
+	//鏌ヨ鍏ㄩ儴閮ㄩ棬
 	public List<Insorg> getALl()throws Exception;
 }

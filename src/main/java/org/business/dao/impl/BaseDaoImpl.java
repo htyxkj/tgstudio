@@ -9,8 +9,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -19,7 +17,7 @@ import org.business.dao.IBaseDao;
 public class BaseDaoImpl<T> implements IBaseDao<T>{
 	Locale locale = Locale.getDefault();  
 	ResourceBundle bundle = ResourceBundle.getBundle("db", locale);
-	//»ñÈ¡Êı¾İ¿âÁ¬½Ó
+	//æ•°æ®åº“è¿æ¥
 	public Connection getConnection() {
 	    String className = bundle.getString("classname");
 	    String url = bundle.getString("url");
@@ -36,7 +34,7 @@ public class BaseDaoImpl<T> implements IBaseDao<T>{
 		}
 		return connection;
 	}
-	//¹Ø±ÕÊı¾İ¿âÁ¬½Ó
+	//å…³é—­è¿æ¥
 	public void closeAll(Connection connection,Statement statement,ResultSet resultSet) {
 		try {
 			if(resultSet!=null){
@@ -55,8 +53,8 @@ public class BaseDaoImpl<T> implements IBaseDao<T>{
 		}
 	}
 	/**
-	 * ·´Éä»úÖÆ   ÎªÊôĞÔ¶¯Ì¬¸³Öµ
-	 * ÊµÌåÀàÊôĞÔÃû³Æ ±ØĞëºÍÊı¾İ¿â×Ö¶Î Ò»Ñù  ·ñÔòÈ¡²»µ½Öµ
+	 * åå°„æœºåˆ¶   ä¸ºå±æ€§åŠ¨æ€èµ‹å€¼
+	 * å®ä½“ç±»å±æ€§åç§° å¿…é¡»å’Œæ•°æ®åº“å­—æ®µ ä¸€æ ·  å¦åˆ™å–ä¸åˆ°å€¼
 	 * @throws SQLException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalArgumentException 
@@ -65,12 +63,12 @@ public class BaseDaoImpl<T> implements IBaseDao<T>{
 	 * @throws NoSuchMethodException 
 	 */
 	public T Field(T t,ResultSet resultSet) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SQLException, NoSuchMethodException, SecurityException{
-		Field[] field =t.getClass().getDeclaredFields(); // »ñÈ¡ÊµÌåÀàµÄËùÓĞÊôĞÔ£¬·µ»ØFieldÊı×é
-		 for (int j = 0; j < field.length; j++) { // ±éÀúËùÓĞÊôĞÔ
-             String name = field[j].getName(); // »ñÈ¡ÊôĞÔµÄÃû×Ö
-             name = name.substring(0, 1).toUpperCase() + name.substring(1); // ½«ÊôĞÔµÄÊ××Ö·û´óĞ´£¬·½±ã¹¹Ôìget£¬set·½·¨
-             String type = field[j].getGenericType().toString(); // »ñÈ¡ÊôĞÔµÄÀàĞÍ
-             if (type.equals("class java.lang.String")) { // Èç¹ûtypeÊÇÀàÀàĞÍ£¬ÔòÇ°Ãæ°üº¬"class "£¬ºóÃæ¸úÀàÃû
+		Field[] field =t.getClass().getDeclaredFields(); // è·å–å®ä½“ç±»çš„æ‰€æœ‰å±æ€§ï¼Œè¿”å›Fieldæ•°ç»„
+		 for (int j = 0; j < field.length; j++) { // éå†æ‰€æœ‰å±æ€§
+             String name = field[j].getName(); // è·å–å±æ€§çš„åå­—
+             name = name.substring(0, 1).toUpperCase() + name.substring(1); // å°†å±æ€§çš„é¦–å­—ç¬¦å¤§å†™ï¼Œæ–¹ä¾¿æ„é€ getï¼Œsetæ–¹æ³•
+             String type = field[j].getGenericType().toString(); // è·å–å±æ€§çš„ç±»å‹
+             if (type.equals("class java.lang.String")) { // å¦‚æœtypeæ˜¯ç±»ç±»å‹ï¼Œåˆ™å‰é¢åŒ…å«"class "ï¼Œåé¢è·Ÿç±»å
             	 Method m = t.getClass().getMethod("get" + name);
                  String value = (String) m.invoke(t);
                  if (value == null) {

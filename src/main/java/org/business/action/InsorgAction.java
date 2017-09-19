@@ -27,7 +27,6 @@ public class InsorgAction extends ActionSupport {
 	 */
 	protected static Logger log = Logger.getLogger(InsorgAction.class);
     private HttpServletRequest request = ServletActionContext.getRequest();
-    private HttpServletResponse response = ServletActionContext.getResponse();
     List<Insorg> listI=new ArrayList<Insorg>();
     public List<Insorg> getListI() {
 		return listI;
@@ -42,7 +41,7 @@ public class InsorgAction extends ActionSupport {
 			IInsorgBiz insorgB=new InsorgBizImpl();
 			listI=insorgB.getWxALl();
 			//客户服务器地址
-			String serviceURL=acc.getErviceURL();
+			String serviceURL=acc.getServiceURL();
 			//服务号APPID
 			String appid=acc.getAppid();
 			//客户服务号开发者密码appsecret
@@ -62,7 +61,7 @@ public class InsorgAction extends ActionSupport {
 			}
 			HttpSession session = request.getSession();
 			session.setAttribute("openid", openid);
-			String kurl=acc.getErviceURL()+"/service?kf_account=";
+			String kurl=acc.getServiceURL()+"/service?kf_account=";
 			String getURL="https://api.weixin.qq.com/cgi-bin/customservice/getonlinekflist?access_token="+acc.getToken();
 			for(int i = 0; i < listI.size(); i ++){
 				insorg=new Insorg();

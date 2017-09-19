@@ -9,7 +9,7 @@
     <constant name="struts.i18n.reload" value="false" />
 
 	<package name="default" extends="json-default" namespace="/">
-		<action name="xcode" class="com.bip.base.action.SMSAction" method="sendXcode">
+		<!-- <action name="xcode" class="com.bip.base.action.SMSAction" method="sendXcode">
 			<result name="msg" type="json">
 				<param name="root">message</param>
 			</result>
@@ -19,29 +19,41 @@
 				<param name="root">message</param>
 			</result>
         </action>
-        <!-- 验证码 -->
-        <action name="verification" class="org.business.action.VerificationAction" method="verification">
-        </action>
-        <!-- 客服 -->
-        <action name="service" class="org.business.action.ServiceAction" method="service">
-        	<result name="msg" type="json">
+         -->
+         <global-results>
+	        <result name="msg" type="json">
 				<param name="root">message</param>
 			</result>
+		</global-results>
+         <!--  url认证  -->
+        <action name="core" class="org.core.action.CoreAction" method="coreRequest">
+        </action>
+        <!-- 发送验证码 -->
+        <action name="sendXcode" class="org.business.action.VerificationAction" method="sendXcode">
+        </action>
+        <!-- 验证验证码 -->
+        <action name="checkXcode" class="org.business.action.VerificationAction" method="checkXcode">
+        </action>
+        <!-- 连接客服 -->
+        <action name="service" class="org.business.action.ServiceAction" method="service">
         </action>
         <!-- 客服列表 -->
         <action name="insorg" class="org.business.action.InsorgAction" method="insorg">
         	<result name="insorg">jsp/service/service.jsp</result>
         </action>
-        <!--  获取店铺信息  -->
+        <!--  获取店铺信息 -->
         <action name="contact" class="org.business.action.ContactAction" method="contact">
         	<result name="contact">jsp/contact/Contact.jsp</result>
-        </action>
+        </action> 
         <!--  一键拨号  -->
         <action name="call" class="org.business.action.CallAction" method="call">
         	<result name="call">jsp/call/Call.jsp</result>
         </action>
-        <!--  url认证  -->
-        <action name="core" class="org.core.action.CoreAction" method="coreRequest">
+        <!-- 验证手机号是否存在 -->
+        <action name="checkTel" class="org.business.action.OrderfromcAction" method="checkTel"></action>
+        <!-- 查询用户歌单 -->
+        <action name="selectAll" class="org.business.action.OrderfromcAction" method="selectAll">
+        	<result name="mysong">jsp/song/mySong.jsp</result>
         </action>
     </package>
 </struts>

@@ -8,7 +8,7 @@ import org.business.entity.Tell;
 public class TellBizImpl implements ITellBiz {
 	ITellDao telldao=new TellDaoImpl();
 	/**
-	 * ��ѯ�绰����
+	 * 查询公司电话
 	 */
 	public Tell getOne() throws Exception {
 		return this.telldao.selectOne();

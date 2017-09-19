@@ -17,23 +17,26 @@ public class TokenThread implements Runnable{
     // 第三方用户唯一凭证密钥  
     public static String appsecret;  
     // 客户服务器地址
-    private String erviceURL;
+    private String serviceURL;
+    //数据库连接标识
+    private String dbid;
     public static AccessToken accessToken = null;  
 	public void run() {
 		Locale locale = Locale.getDefault();  
 		ResourceBundle bundle = ResourceBundle.getBundle("token", locale);
 		appid = bundle.getString("appid");
 		appsecret = bundle.getString("appsecret");
-		erviceURL = bundle.getString("erviceURL");
-		
+		serviceURL = bundle.getString("serviceURL");
+		dbid = bundle.getString("dbid");
 		while (true) {
             try {
             	//从数据库里拿每个公司微信配置信息
             		accessToken = WeixinUtil.getAccessToken(appid,appsecret);
             		if (null != accessToken) {
             			accessToken.setAppid(appid);
+            			accessToken.setDbid(dbid);
             			accessToken.setAppsecret(appsecret);
-            			accessToken.setErviceURL(erviceURL);
+            			accessToken.setServiceURL(serviceURL);
 	                    log.info("获取access_token成功,获取时间:"+sdf.format(new Date())+",有效时长"+accessToken.getExpiresIn()+"秒 token:"+accessToken.getToken()+"");
 	                }else {
 	                	 //未获得链接令牌  休眠5秒后重新获取
