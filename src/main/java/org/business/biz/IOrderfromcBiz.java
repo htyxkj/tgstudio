@@ -3,6 +3,7 @@ package org.business.biz;
 import java.util.List;
 
 import org.business.entity.Orderfromc;
+import org.business.entity.PageInfo;
 import org.business.entity.Reservation;
 
 public interface IOrderfromcBiz {
@@ -13,4 +14,18 @@ public interface IOrderfromcBiz {
 	 * @throws Exception
 	 */
 	public List<Orderfromc> getAll(String tel) throws Exception;
+	/**
+	 * 根据sid查询单个歌曲
+	 * @param sid
+	 * @return
+	 * @throws Exception
+	 */
+	public Orderfromc getOne(String sid) throws Exception;
+	/**
+	 * 分页查询用户歌单
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
+	public PageInfo<Orderfromc> getPageAll(PageInfo<Orderfromc> page) throws Exception;
 }

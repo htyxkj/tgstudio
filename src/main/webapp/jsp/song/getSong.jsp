@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     <title>糖果录音棚客户曲歌系统</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 	<script type="text/javascript" src="./js/jquery-3.0.0.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/getSong.css" />
 	<script type="text/javascript">
@@ -89,12 +89,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            wait = 60;  
 		        } else {  
 		            o.setAttribute("disabled", true);  
-		            o.value="重新发送(" + wait + ")";  
+		            o.value="（" + wait + "s）";  
 		            wait--;  
 		            setTimeout(function() {  
-		                time(o)  
+		                time(o);  
 		            },  
-		            1000)  
+		            1000);  
 		        }  
 		}
     </script>
@@ -111,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </head>
     <body class="body">
     	<div>
-		   	<div style="width:70%;position:absolute;left:15%;top:28%">
+		   	<div style="width:70%;position:absolute;left:15%;top:43%">
 				<form id="form" action="selectAll" name="f" method="post">
 					<div class="input_outer">
 						<span class="u_user"></span>
@@ -122,8 +122,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span class="us_uer"></span>
 							<input id="code" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;width: 60%;"value="" type="text" placeholder="请输入验证码">
 						</div>
-						<div style="float:left;width:30%;padding-left:6px;">
-							<input type="button" class="act-but submit" value="获取" style="margin:0px;color:white;border:0px;" onclick="javascript:selectTel(this);"/>  
+						<div style="float:right;text-align:center;width:30%;margin-top:0.1em;line-height:2.4em;font-size:5px">
+							<input type="button" class="act-but submit" value="获取" style="width:100% ;margin:0px;color:white;border:0px;height:2.4em; " onclick="javascript:selectTel(this);"/>  
 						</div>
 					</div>
 					<div class="mb2" style="clear:both;"><a class="act-but submit" href="javascript:submit();" style="color: #FFFFFF">登录</a></div>

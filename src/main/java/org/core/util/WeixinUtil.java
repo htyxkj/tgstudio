@@ -12,6 +12,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import org.apache.log4j.Logger;
 import org.core.accesstoken.AccessToken;
+import org.core.accesstoken.JsapiTicket;
 
 import net.sf.json.JSONObject;
 
@@ -26,6 +27,8 @@ public class WeixinUtil {
 	private static Logger log = Logger.getLogger(WeixinUtil.class);
 	// 获取access_token的接口地址（GET） 限2000（次/天）  
 	public final static String access_token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
+	// 获取jsapi_ticket的接口
+	public final static String jsapi_ticket_url="https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi";
 	/** 
      * 发起https请求并获取结果 
      *  
@@ -156,5 +159,25 @@ public class WeixinUtil {
             }  
         }  
         return accessToken;  
-    }  
+    } 
+    public static JsapiTicket getJsapiTicket(String accessTonke){
+    	JsapiTicket jsapiTicket=null;
+    	String requestUrl = jsapi_ticket_url.replace("ACCESS_TOKEN", accessTonke);
+        JSONObject jsonObject = httpRequest(requestUrl, "GET", null);  
+        //如果请求成功
+        if (null != jsonObject) {  
+            try {
+            	jsapiTicket = new JsapiTicket();
+            	jsapiTicket.setErrcode(jsonObject.getString("errcode"));
+            	jsapiTicket.setTicket(jsonObject.getString("ticket"));
+            	jsapiTicket.setExpires_in(jsonObject.getInt("expires_in"));
+            } catch (Exception e) {  
+            	jsapiTicket = new JsapiTicket();  
+            	jsapiTicket.setErrcode(jsonObject.getString("errcode"));
+                // 获取token失败  
+                log.error("获取jsapiTicket失败 errcode:{"+ jsonObject.getInt("errcode")+"} errmsg:{"+ jsonObject.getString("errmsg")+"}");
+            }  
+        }  
+    	return jsapiTicket;
+    }
 }

@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						}
 					},
 					error:function (data) {
-						
+						alert("出错了");
 					}
 		        });
 			}else{
@@ -57,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <s:iterator value="listI" var="list">
   	<div class="div1" onclick="javascript:kf('${list.service}');" >
   		<div class="img">
-  			<img src="./img/js.jpg">
+  			<img src="${list.fj_root}">
   		</div>
 	  	<div class="div2">
 	  		<div style="font-size:16px;">

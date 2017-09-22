@@ -19,18 +19,23 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class ServiceAction extends ActionSupport{
 	protected static Logger log = Logger.getLogger(InsorgAction.class);
-	private HttpServletRequest request = ServletActionContext.getRequest();
 	private Message message=new Message();
-	
+	private String kf_account;
 	public Message getMessage() {
 		return message;
 	}
+	public void setKf_account(String kf_account) {
+		this.kf_account = kf_account;
+	}
+
 	public String service() {
 		try {
 			WeixinUtil weixUtil = new WeixinUtil();
 			TokenThread t = new TokenThread();
 			AccessToken accTok = t.accessToken;
-			HttpSession session = request.getSession();
+			HttpSession session =  ServletActionContext.getRequest().getSession();
+			log.info("session");
+			log.info(session);
 			// 输出流
 			// 向微信服务器发起请求类型 默认为POST请求 GET需要另行修改
 			String requestMethod = "POST";
@@ -41,10 +46,9 @@ public class ServiceAction extends ActionSupport{
 			// 用户同意授权后，能获取到code
 			// String code = request.getParameter("code");
 			// 客服标识
-			String kf_account = request.getParameter("kf_account");
 			// 用户唯一标识 openid
 			String openid = (String) session.getAttribute("openid");
-
+			log.info(openid);
 			// if (!"authdeny".equals(code) && code != null) {
 			// //获取code后,请求以下链接获取access_token,以及用户 openid
 			// String

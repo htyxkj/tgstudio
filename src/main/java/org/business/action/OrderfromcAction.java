@@ -3,13 +3,17 @@ package org.business.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.business.biz.IOrderfromcBiz;
 import org.business.biz.IReservationBiz;
 import org.business.biz.impl.OrderfromcBizImpl;
 import org.business.biz.impl.ReservationBizImpl;
 import org.business.entity.Message;
 import org.business.entity.Orderfromc;
+import org.business.entity.PageInfo;
 import org.business.entity.Reservation;
 import org.core.accesstoken.AccessToken;
 import org.core.accesstoken.TokenThread;
@@ -19,8 +23,25 @@ import com.opensymphony.xwork2.ActionSupport;
 public class OrderfromcAction extends ActionSupport{
 	protected static Logger log = Logger.getLogger(OrderfromcAction.class);
 	private List<Orderfromc> listO=new ArrayList<Orderfromc>();
+	private PageInfo<Orderfromc> page=new PageInfo<Orderfromc>();
 	private Message message=new Message();
-	private String tel;
+	private String tel;	//手机号
+	private String sid; //歌曲编号
+	private Orderfromc orderfc;
+	private Integer rows=10;//每页显示条数 默认10
+	private Integer currentPage;//当前页数
+	private Integer totalPage;//总页数
+	private String fileUrl;
+	private String dowUrl;
+	public PageInfo<Orderfromc> getPage() {
+		return page;
+	}
+	public Integer getCurrentPage() {
+		return currentPage;
+	}
+	public Integer getTotalPage() {
+		return totalPage;
+	}
 	public List<Orderfromc> getListO() {
 		return listO;
 	}
@@ -29,6 +50,27 @@ public class OrderfromcAction extends ActionSupport{
 	}
 	public void setTel(String tel) {
 		this.tel = tel;
+	}
+	public String getSid() {
+		return sid;
+	}
+	public void setSid(String sid) {
+		this.sid = sid;
+	}
+	public Orderfromc getOrderfc() {
+		return orderfc;
+	}
+	public void setRows(Integer rows) {
+		this.rows = rows;
+	}
+	public void setCurrentPage(Integer currentPage) {
+		this.currentPage = currentPage;
+	}
+	public String getFileUrl() {
+		return fileUrl;
+	}
+	public String getDowUrl() {
+		return dowUrl;
 	}
 	/***
 	 * 查询用户输入的手机号是否存在于系统内
@@ -52,17 +94,71 @@ public class OrderfromcAction extends ActionSupport{
 	 */
 	public String selectAll(){
 		try {
-			IOrderfromcBiz order=new OrderfromcBizImpl();
-			listO=order.getAll(tel);
-			for(int i =0;i<listO.size();i ++){
-				TokenThread t=new TokenThread();
-				AccessToken acc=t.accessToken;
-				String url=acc.getServiceURL() +"fileupdown?fud=1&rid=4&isweb=1&dbid="+acc.getDbid()+"&filepath=" + listO.get(i).getFj_root() + listO.get(i).getFj_name();
-				listO.get(i).setFj_root(url);
-			}
+			HttpSession session =  ServletActionContext.getRequest().getSession();
+			String tel1=(String) session.getAttribute("tel");
+			TokenThread t=new TokenThread();
+			AccessToken acc=t.accessToken;
+			Orderfromc orderfc=new Orderfromc();
+			orderfc.setTel(tel1);
+			IOrderfromcBiz order =new OrderfromcBizImpl();
+			page.setPageSize(rows);
+			currentPage=currentPage==null?1:currentPage;
+			page.setCurrentPage(currentPage);
+			page.setCondition(orderfc);
+			page=order.getPageAll(page);
+			listO=page.getRows();
+			this.fileUrl=acc.getFileURL()+"/db_"+acc.getDbid()+"/";
+			this.dowUrl=acc.getBipServiceURL() +"/fileupdown?fud=1&rid=4&isweb=1&dbid="+acc.getDbid()+"&filepath=";
+			currentPage=page.getCurrentPage();
+			totalPage=page.getTotalPage();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "mysong";
+	}
+	public String nextPage(){
+		try {
+			HttpSession session =  ServletActionContext.getRequest().getSession();
+			String tel1=(String) session.getAttribute("tel");
+			TokenThread t=new TokenThread();
+			AccessToken acc=t.accessToken;
+			Orderfromc orderfc=new Orderfromc();
+			orderfc.setTel(tel1);
+			IOrderfromcBiz order =new OrderfromcBizImpl();
+			page.setPageSize(rows);
+			currentPage=currentPage==null?1:currentPage;
+			page.setCurrentPage(currentPage);
+			page.setCondition(orderfc);
+			page=order.getPageAll(page);
+			this.fileUrl=acc.getFileURL()+"/db_"+acc.getDbid()+"/";
+			this.dowUrl=acc.getBipServiceURL() +"/fileupdown?fud=1&rid=4&isweb=1&dbid="+acc.getDbid()+"&filepath=";
+			currentPage=page.getCurrentPage();
+			totalPage=page.getTotalPage();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "nextpage";
+	}
+	/**
+	 * 根据歌曲编码查询单个歌曲
+	 */
+	public String selOneSong(){
+		
+		TokenThread t=new TokenThread();
+		AccessToken acc=t.accessToken;
+		IOrderfromcBiz order=new OrderfromcBizImpl();
+		try {
+			orderfc=order.getOne(sid);
+			if(orderfc==null)
+				return "error";
+			this.fileUrl=acc.getFileURL()+"/db_"+acc.getDbid()+"/";
+			if(orderfc.getType().equals("m"))
+				return "oneSong";
+			if(orderfc.getType().equals("v"))
+				return "oneMV";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "oneSong";
 	}
 }

@@ -4,7 +4,10 @@ package org.business.action;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.business.entity.Message;
 import org.sms.utils.XcodeValidTool;
 
@@ -12,7 +15,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 
 public class VerificationAction extends ActionSupport{
-	
+	HttpSession session =  ServletActionContext.getRequest().getSession();
 	public static XcodeValidTool xx;
 	static{
 		if(xx==null){
@@ -91,6 +94,7 @@ public class VerificationAction extends ActionSupport{
 				if(xx._keycodeValidt.containsKey(tels+"_"+xcode))
 					xx._keycodeValidt.remove(tels+"_"+xcode);
 				log.info("验证码通过");
+				session.setAttribute("tel", tels);
 				message.setErrmsg("验证码通过！");
 				message.setErrcode("0");
 				return "msg";

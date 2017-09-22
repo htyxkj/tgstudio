@@ -20,10 +20,12 @@
 			</result>
         </action>
          -->
+         
          <global-results>
 	        <result name="msg" type="json">
 				<param name="root">message</param>
 			</result>
+			<result name="error">jsp/error.jsp</result>
 		</global-results>
          <!--  url认证  -->
         <action name="core" class="org.core.action.CoreAction" method="coreRequest">
@@ -54,6 +56,36 @@
         <!-- 查询用户歌单 -->
         <action name="selectAll" class="org.business.action.OrderfromcAction" method="selectAll">
         	<result name="mysong">jsp/song/mySong.jsp</result>
+        </action>
+        <!-- 查询用户下一页的数据 -->
+        <action name="nextpage" class="org.business.action.OrderfromcAction" method="nextPage">
+        	<result name="nextpage" type="json">
+				<param name="root">page</param>
+				<param name="includeProperties">
+					^rows\[\d+\]\.sid,
+					^rows\[\d+\]\.singname,
+					^rows\[\d+\]\.name,
+					^rows\[\d+\]\.fj_root,
+					^rows\[\d+\]\.fj_name,
+					^rows\[\d+\]\.fj_troot,
+					^rows\[\d+\]\.fj_tname,
+					^rows\[\d+\]\.tel,
+					^rows\[\d+\]\.type,
+					^currentPage
+					^totalPage
+				</param>
+			</result>
+        </action>
+        
+        <action name="selectOne" class="org.business.action.OrderfromcAction" method="selOneSong">
+        	<result name="oneSong">jsp/song/shareSong.jsp</result>
+        	<result name="oneMV">jsp/song/shareMV.jsp</result>
+        </action>
+        <!-- 获取微信js调用信息jsApiSign -->
+        <action name="ApiVerifu" class="org.core.action.GetJsApiVerify" method="getApiVerifu">
+        	<result name="jsApiSign" type="json">
+				<param name="root">map</param>
+			</result>
         </action>
     </package>
 </struts>

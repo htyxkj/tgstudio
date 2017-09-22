@@ -6,6 +6,7 @@ import org.business.biz.IOrderfromcBiz;
 import org.business.dao.IOrderfromcDao;
 import org.business.dao.impl.OrderfromcDaoImpl;
 import org.business.entity.Orderfromc;
+import org.business.entity.PageInfo;
 
 public class OrderfromcBizImpl implements IOrderfromcBiz {
 	IOrderfromcDao order=new OrderfromcDaoImpl();
@@ -18,6 +19,27 @@ public class OrderfromcBizImpl implements IOrderfromcBiz {
 	@Override
 	public List<Orderfromc> getAll(String tel) throws Exception {
 		return this.order.selectAll(tel);
+	}
+	/**
+	 * 根据sid查询单个歌曲
+	 * @param sid
+	 * @return
+	 * @throws Exception
+	 */
+	@Override
+	public Orderfromc getOne(String sid) throws Exception {
+		return this.order.selectOne(sid);
+	}
+	/**
+	 * 分页查询用户歌单
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
+	@Override
+	public PageInfo<Orderfromc> getPageAll(PageInfo<Orderfromc> page)
+			throws Exception {
+		return this.order.selPageAll(page);
 	}
 
 }

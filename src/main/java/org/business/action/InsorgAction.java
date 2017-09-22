@@ -26,12 +26,18 @@ public class InsorgAction extends ActionSupport {
 	 * 查询店铺列表
 	 */
 	protected static Logger log = Logger.getLogger(InsorgAction.class);
-    private HttpServletRequest request = ServletActionContext.getRequest();
+    private String code;
+    private String state;
     List<Insorg> listI=new ArrayList<Insorg>();
     public List<Insorg> getListI() {
 		return listI;
 	}
-
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
 	public String insorg() {
     	try {
 			Insorg insorg=null;
@@ -47,7 +53,6 @@ public class InsorgAction extends ActionSupport {
 			//客户服务号开发者密码appsecret
 			String appsecret=acc.getAppsecret();
 			//用户同意授权后，能获取到code
-			String code = request.getParameter("code");
 			String openid="";
 			if (!"authdeny".equals(code) && code != null) {
 				//获取code后,请求以下链接获取access_token,以及用户 openid
@@ -59,7 +64,7 @@ public class InsorgAction extends ActionSupport {
 				log.info(acc_url);
 				openid = jsonObj.getString("openid");
 			}
-			HttpSession session = request.getSession();
+			HttpSession session =  ServletActionContext.getRequest().getSession();
 			session.setAttribute("openid", openid);
 			String kurl=acc.getServiceURL()+"/service?kf_account=";
 			String getURL="https://api.weixin.qq.com/cgi-bin/customservice/getonlinekflist?access_token="+acc.getToken();
@@ -69,8 +74,10 @@ public class InsorgAction extends ActionSupport {
 				String kf=insorg.getService()+"@";
 				kurl = kurl+kf;
 				listI.get(i).setService(kurl);
-				JSONObject jsonObj= weixUtil.httpsRequest(getURL, "GET",null);
-				if(jsonObj.containsKey("kf_online_list")){
+				//图片路径
+				listI.get(i).setFj_root(acc.getFileURL()+"/db_"+acc.getDbid()+"/"+listI.get(i).getFj_root()+listI.get(i).getFj_name());
+//				JSONObject jsonObj= weixUtil.httpsRequest(getURL, "GET",null);
+//				if(jsonObj.containsKey("kf_online_list")){
 //					if(jsonObj.getJSONArray("kf_online_list").size()==0){
 //						listI.get(i).setService("");
 //					}
@@ -84,7 +91,7 @@ public class InsorgAction extends ActionSupport {
 //							}
 //						}
 //					}
-				}
+//				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

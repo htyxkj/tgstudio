@@ -8,6 +8,8 @@ public class Insorg {
 	private String service;//客服微信
 	private String address;//地址
 	private String tel;//联系方式
+	private String fj_root;//附件地址
+	private String fj_name;//附件名称
 	public String getOrgcode() {
 		return orgcode;
 	}
@@ -49,5 +51,17 @@ public class Insorg {
 	}
 	public void setTel(String tel) {
 		this.tel = tel;
+	}
+	public String getFj_root() {
+		return fj_root;
+	}
+	public void setFj_root(String fj_root) {
+		this.fj_root = fj_root;
+	}
+	public String getFj_name() {
+		return fj_name;
+	}
+	public void setFj_name(String fj_name) {
+		this.fj_name = fj_name;
 	}
 }

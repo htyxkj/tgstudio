@@ -5,7 +5,7 @@ public class AccessToken {
     private String token;  
     // 凭证有效时间，单位：秒  
     private int expiresIn;
-    // 客户服务器地址
+    // 客户服务器地址wx 端
     private String serviceURL;
     // 客户服务号id
     private String appid;
@@ -13,6 +13,16 @@ public class AccessToken {
     private String appsecret;
     // 数据库编号
     private String dbid;
+    // 客户服务器地址BIP 端
+    private String bipServiceURL;
+    // 文件地址
+    private String fileURL;
+	public String getBipServiceURL() {
+		return bipServiceURL;
+	}
+	public void setBipServiceURL(String bipServiceURL) {
+		this.bipServiceURL = bipServiceURL;
+	}
 	public String getToken() {
 		return token;
 	}
@@ -48,5 +58,11 @@ public class AccessToken {
 	}
 	public void setDbid(String dbid) {
 		this.dbid = dbid;
+	}
+	public String getFileURL() {
+		return fileURL;
+	}
+	public void setFileURL(String fileURL) {
+		this.fileURL = fileURL;
 	}
 }

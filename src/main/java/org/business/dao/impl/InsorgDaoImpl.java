@@ -20,7 +20,7 @@ public class InsorgDaoImpl extends BaseDaoImpl<Insorg> implements IInsorgDao {
 		Insorg insorg=null;
 		List<Insorg> listI=new ArrayList<Insorg>();
 		try{
-			String sql="select orgcode,orgname,address,tel,service from insorg where scm is not null and corg<>0 and service is not null";
+			String sql="select orgcode,orgname,address,tel,service,fj_root,fj_name from insorg where scm is not null and corg<>0 and service is not null";
 			statement = connection.prepareStatement(sql);
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {

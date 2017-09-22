@@ -28,14 +28,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </style>
     </head>
     <body>
+    <!-- 
 	    <div>
 			<video  src="./mp4/video.mp4" controls="controls" x5-playsinline="" style="width:94%;height:100%;">
 			  <source src="./mp4/video.mp4" type="video/mp4" >
 			</video>
 		</div>
+		 -->
 		<div>
-			<audio id="1" controls  src="http://p2.music.126.net/qYw9SZcdJ-gJ5UT2kzGmMw==/8898347603732273.mp3" preload="auto"></audio>
-			<input type="button" onclick="javascript:playPause(1);" value="播放/暂停"/>
+		<audio id="1" src="http://192.168.0.106:9999/jd/fileupdown?fud=1&rid=4&isweb=1&dbid=101&filepath=fj_reservationb/Y201709/123.mp3" controls="controls" preload="auto">
+		</audio>  
+		<input type="button" onclick="javascript:playPause(1);" value="播放/暂停"/>
+		
+		<a href="http://192.168.0.106:9999/jd/fileupdown?fud=1&rid=4&isweb=1&dbid=101&filepath=fj_reservationb/Y201709/123.mp3">sasa</a>
 		</div>
     </body>
 </html>
