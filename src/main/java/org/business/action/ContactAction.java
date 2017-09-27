@@ -22,7 +22,12 @@ public class ContactAction  extends ActionSupport{
 	 */
 	protected static Logger log = Logger.getLogger(CallAction.class);
 	List<Insorg> listI=new ArrayList<Insorg>();	
-    public List<Insorg> getListI() {
+	private String fileUrl;
+	
+    public String getFileUrl() {
+		return fileUrl;
+	}
+	public List<Insorg> getListI() {
 		return listI;
 	}
 	public void setListI(List<Insorg> listI) {
@@ -34,9 +39,7 @@ public class ContactAction  extends ActionSupport{
 			AccessToken acc=t.accessToken;
 			IInsorgBiz insorgB=new InsorgBizImpl();
 			listI=insorgB.getALl();
-			for (int i = 0; i < listI.size(); i++) {
-				listI.get(i).setFj_root(acc.getFileURL()+"/db_"+acc.getDbid()+"/"+listI.get(i).getFj_root()+listI.get(i).getFj_name());
-			}
+			this.fileUrl=acc.getFileURL()+"/db_"+acc.getDbid()+"/";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

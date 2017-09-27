@@ -9,6 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <base href="<%=basePath%>">
     <title>出错了</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+    <link href="./img/ico.ico" rel="shortcut icon" />
     <style type="text/css">
     	body{ background: url(./img/error.png) right no-repeat;
         	  background-size: auto auto;

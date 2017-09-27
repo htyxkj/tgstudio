@@ -92,15 +92,50 @@ function share(){
 	});
 };	
 function xiazai(root){
+	if(isWeiXin()){
+		$("#xiazaiyd").show();
+	}else{
 		window.location.href=root;
+	}
+	setTimeout("hidexz()","4000");
+}
+function isWeiXin(){
+	var ua = window.navigator.userAgent.toLowerCase();
+	if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+		return true;
+	}else{
+		return false;
+	}
+}
+function hidexz(){
+	$("#xiazaiyd").hide();
 }
 function fx(){
 	$("#yindao").show();
-	
-	setTimeout("hidexz()","4000");
 } 
-function hidexz(){
-	$("#yindao").hide();
+function iFrameHeight() {   
+	var ifm= document.getElementById("iframepage");   
+	var subWeb = document.frames ? document.frames["iframepage"].document : ifm.contentDocument;   
+	if(ifm != null && subWeb != null) {
+	   ifm.height = subWeb.body.scrollHeight;
+	}   
+	}
+function dd(v){
+	var root="";
+	if(v==1){
+		alert(v);
+		root="http://www.bip-soft.com/file/db_01/fj_reservationb/Y201709/12.mp3";
+	}else{
+		alert(v);
+		root="http://www.bip-soft.com:8080/tgstudio/fileupdown?fud=1&rid=4&isweb=1&dbid=01&filepath=fj_reservationb/Y201709/12.mp3";	
+	}
+	var audio= document.getElementById("audio");
+/**	if(audio.paused){
+		audio.play();
+	}**/
+	audio.pause();
+	audio.src = root;
+	audio.play();
 }
 </script>
 <style type="text/css">
@@ -111,10 +146,18 @@ body{
             width:100%;
         }
  .yindao{
-	display:none;
+ 	display:none;
 	z-index: 99;
 	background-position: center center;
 	width: 100%;
+
+    position:fixed;
+    top:0;
+}
+.xiazaiyd{
+	display:none;
+	z-index: 99;
+	background-position: center center;
     position:fixed;
     top:0;
 }
@@ -124,10 +167,11 @@ body{
 	<div style="margin:15px 0px 10px 0px">
 		<img style="width:100%" src="./img/videojsp.png" />
 	</div>
-	<div style="width:100%; ">
-		<video id="my-video" class="video-js vjs-big-play-centered" x5-playsinline="" controls preload="auto" autoplay>
-			<source src="${fileUrl}${orderfc.fj_root}${orderfc.fj_name}" type='video/mp4'>
-		</video>
+	<audio  id="audio" src="http://www.bip-soft.com:8080/tgstudio/fileupdown?fud=1&rid=4&isweb=1&dbid=01&filepath=fj_reservationb/Y201709/1.mp3"></audio>
+	
+	<a onclick="javascript:dd('1')">1111</a>
+	<a onclick="javascript:dd('2')">2222</a>
+	<div style="width:100%;text-align: center;">
 	</div>
 <div style="padding:0 20px;">
 	<div>
@@ -139,40 +183,16 @@ body{
 		</div>
 	</div>
 	<div style="padding-top:1em;">
-		
+		<video id="my-video" class="video-js vjs-big-play-centered" x5-video-player-type="h5"  x5-playsinline=""  controls webkit-playsinline="true" preload="auto"  playsinline>
+			<source src="http://www.bip-soft.com:8080/tgstudio/fileupdown?fud=1&rid=4&isweb=1&dbid=01&filepath=fj_reservationb/Y201709/97d5e75e606a0ea46443ac0e4ff6925.mp4" type='video/mp4'>
+		</video>
 	</div>
 </div>
-	<div class="yindao" id="yindao" >  
-		<img style="width:100%;height:100%;z-index:100;background: rgba(21,22,25,0.4);" src='./img/v_fxyd.png'/>
+	<div class="xiazaiyd" id="xiazaiyd" > 
+		<img style="width:100%;height:3000px;z-index:100;background: rgba(21,22,25,0.4);" src='./img/v_xiazai.png'/>
 	</div>
-    <script src="http://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
-    <script src="http://vjs.zencdn.net/5-unsafe/video.js"></script>
-    <script>
-        (function($){
-            var list = [
-                {name:"${orderfc.fj_name}", url: "${fileUrl}${orderfc.fj_root}${orderfc.fj_name}", lastTime:0}, 
-            ]; 
-            var resetVideoSize = function(myPlayer){
-                var videoJsBoxWidth = $(".video-js").width();
-                var ratio = 1440/900;
-                var videoJsBoxHeight = videoJsBoxWidth/ratio;
-                myPlayer.height(videoJsBoxHeight);
-            };
-            var myPlayer = videojs("my-video").ready(function(){
-            	
-                var i = 0;
-                var videoObj = list[i];
-                var lastTime = localStorage.getItem(videoObj.name + ".currentTime") || 0;
-                this.currentTime(lastTime); 
-                this.width("100%");
-                resetVideoSize(myPlayer);
-                this.autoPlay=true;
-                myPlayer.play();
-            });
-            $(window).on("resize", function(){
-                resetVideoSize(myPlayer); 
-            }); 
-        })(jQuery);
-    </script>
+	<div class="yindao" id="yindao" >  
+		<img style="width:100%;height:500px;z-index:100;background: rgba(21,22,25,0.4);" src='./img/v_fxyd.png'/>
+	</div> 
 </body>
 </html>

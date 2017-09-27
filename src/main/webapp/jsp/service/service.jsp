@@ -55,9 +55,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<li><img alt="糖果录音" style="height:30px;" src="./img/logo.png"> </li>
   </ul>
   <s:iterator value="listI" var="list">
-  	<div class="div1" onclick="javascript:kf('${list.service}');" >
+  	<div class="div1" onclick="javascript:kf('${kfURL}${list.service}@');" >
   		<div class="img">
-  			<img src="${list.fj_root}">
+  			<img src="${fileUrl}${list.fj_root}${list.fj_name}">
   		</div>
 	  	<div class="div2">
 	  		<div style="font-size:16px;">

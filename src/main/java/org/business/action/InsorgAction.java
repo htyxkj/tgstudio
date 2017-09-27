@@ -28,9 +28,17 @@ public class InsorgAction extends ActionSupport {
 	protected static Logger log = Logger.getLogger(InsorgAction.class);
     private String code;
     private String state;
+    private String kfURL;
+    private String fileUrl;
     List<Insorg> listI=new ArrayList<Insorg>();
     public List<Insorg> getListI() {
 		return listI;
+	}
+	public String getFileUrl() {
+		return fileUrl;
+	}
+	public String getKfURL() {
+		return kfURL;
 	}
 	public void setCode(String code) {
 		this.code = code;
@@ -66,16 +74,17 @@ public class InsorgAction extends ActionSupport {
 			}
 			HttpSession session =  ServletActionContext.getRequest().getSession();
 			session.setAttribute("openid", openid);
-			String kurl=acc.getServiceURL()+"/service?kf_account=";
-			String getURL="https://api.weixin.qq.com/cgi-bin/customservice/getonlinekflist?access_token="+acc.getToken();
-			for(int i = 0; i < listI.size(); i ++){
-				insorg=new Insorg();
-				insorg=listI.get(i);
-				String kf=insorg.getService()+"@";
-				kurl = kurl+kf;
-				listI.get(i).setService(kurl);
-				//图片路径
-				listI.get(i).setFj_root(acc.getFileURL()+"/db_"+acc.getDbid()+"/"+listI.get(i).getFj_root()+listI.get(i).getFj_name());
+			kfURL=acc.getServiceURL()+"/service?kf_account=";
+			fileUrl=acc.getFileURL()+"/db_"+acc.getDbid()+"/";
+//			String getURL="https://api.weixin.qq.com/cgi-bin/customservice/getonlinekflist?access_token="+acc.getToken();
+//			for(int i = 0; i < listI.size(); i ++){
+//				insorg=new Insorg();
+//				insorg=listI.get(i);
+//				String kf=insorg.getService()+"@";
+//				kurl = kurl+kf;
+//				listI.get(i).setService(kurl);
+//				//图片路径
+//				listI.get(i).setFj_root(acc.getFileURL()+"/db_"+acc.getDbid()+"/"+listI.get(i).getFj_root()+listI.get(i).getFj_name());
 //				JSONObject jsonObj= weixUtil.httpsRequest(getURL, "GET",null);
 //				if(jsonObj.containsKey("kf_online_list")){
 //					if(jsonObj.getJSONArray("kf_online_list").size()==0){
@@ -92,7 +101,7 @@ public class InsorgAction extends ActionSupport {
 //						}
 //					}
 //				}
-			}
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

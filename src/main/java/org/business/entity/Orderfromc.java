@@ -5,11 +5,10 @@ public class Orderfromc {
 	private String singname;//演唱曲目
 	private String fj_name;//附件名称
 	private String fj_root;//附件下载路径
-	private String fj_tname;//附件名称
-	private String fj_troot;//附件下载路径
 	private String name;//演唱者
 	private String tel;//手机号
-	private String type;//类型  音频 视频
+	private String type;//类型  音频 视频      m/v
+	private String type1;// 可否试听  0t/1f
 	public String getSid() {
 		return sid;
 	}
@@ -46,22 +45,16 @@ public class Orderfromc {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	public String getFj_tname() {
-		return fj_tname;
-	}
-	public void setFj_tname(String fj_tname) {
-		this.fj_tname = fj_tname;
-	}
-	public String getFj_troot() {
-		return fj_troot;
-	}
-	public void setFj_troot(String fj_troot) {
-		this.fj_troot = fj_troot;
-	}
 	public String getType() {
 		return type;
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public String getType1() {
+		return type1;
+	}
+	public void setType1(String type1) {
+		this.type1 = type1;
 	}
 }

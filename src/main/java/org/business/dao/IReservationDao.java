@@ -9,6 +9,6 @@ public interface IReservationDao {
 	 * @return 
 	 * @throws Exception
 	 */
-	public Reservation selectTel(String tel) throws Exception;
+	public Integer selectTel(String tel) throws Exception;
 
 }

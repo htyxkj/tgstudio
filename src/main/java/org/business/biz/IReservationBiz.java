@@ -1,6 +1,5 @@
 package org.business.biz;
 
-import org.business.entity.Reservation;
 
 public interface IReservationBiz {
 	/**
@@ -9,5 +8,5 @@ public interface IReservationBiz {
 	 * @return 
 	 * @throws Exception
 	 */
-	public Reservation getTel(String tel) throws Exception;
+	public Integer getTel(String tel) throws Exception;
 }

@@ -19,7 +19,11 @@ import org.core.accesstoken.AccessToken;
 import org.core.accesstoken.TokenThread;
 
 import com.opensymphony.xwork2.ActionSupport;
-
+/**
+ * 用户歌曲列表
+ * @author Administrator
+ *
+ */
 public class OrderfromcAction extends ActionSupport{
 	protected static Logger log = Logger.getLogger(OrderfromcAction.class);
 	private List<Orderfromc> listO=new ArrayList<Orderfromc>();
@@ -78,8 +82,8 @@ public class OrderfromcAction extends ActionSupport{
 	public String checkTel(){
 		try {
 			IReservationBiz res=new ReservationBizImpl();
-			Reservation re=res.getTel(tel);
-			if(Integer.parseInt(re.getTel())>0){
+			Integer num=res.getTel(tel);
+			if(num>0){
 				message.setErrcode("0");
 			}else{
 				message.setErrcode("-1");
@@ -116,6 +120,10 @@ public class OrderfromcAction extends ActionSupport{
 		}
 		return "mysong";
 	}
+	/***
+	 * 查询下一页的歌曲
+	 * @return
+	 */
 	public String nextPage(){
 		try {
 			HttpSession session =  ServletActionContext.getRequest().getSession();
@@ -143,7 +151,6 @@ public class OrderfromcAction extends ActionSupport{
 	 * 根据歌曲编码查询单个歌曲
 	 */
 	public String selOneSong(){
-		
 		TokenThread t=new TokenThread();
 		AccessToken acc=t.accessToken;
 		IOrderfromcBiz order=new OrderfromcBizImpl();
@@ -152,6 +159,7 @@ public class OrderfromcAction extends ActionSupport{
 			if(orderfc==null)
 				return "error";
 			this.fileUrl=acc.getFileURL()+"/db_"+acc.getDbid()+"/";
+			this.dowUrl=acc.getBipServiceURL() +"/fileupdown?fud=1&rid=4&isweb=1&dbid="+acc.getDbid()+"&filepath=";
 			if(orderfc.getType().equals("m"))
 				return "oneSong";
 			if(orderfc.getType().equals("v"))
@@ -160,5 +168,25 @@ public class OrderfromcAction extends ActionSupport{
 			e.printStackTrace();
 		}
 		return "oneSong";
+	}
+	/**
+	 * 查询全部可试听歌曲
+	 */
+	public String Audition(){
+		try {
+			TokenThread t=new TokenThread();
+			AccessToken acc=t.accessToken;
+			this.fileUrl=acc.getFileURL()+"/db_"+acc.getDbid()+"/";
+			IOrderfromcBiz orderf=new OrderfromcBizImpl();
+			Orderfromc order=new Orderfromc();
+			order.setType1("0");
+			listO=orderf.getAll(order);
+			Orderfromc element=new Orderfromc();
+			element.setFj_root(fileUrl);
+			listO.add(0, element);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "audition";
 	}
 }

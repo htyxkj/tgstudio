@@ -54,7 +54,7 @@ public class OrderfromcDaoImpl extends BaseDaoImpl<Orderfromc> implements IOrder
 		ResultSet resultSet = null;
 		Orderfromc orderfromc=null;
 		try{
-			String sql="select name,tel,fj_root,fj_name,fj_troot,fj_tname,singname,type from downladorder where sid=? order by mkdata desc";
+			String sql="select name,tel,fj_root,fj_name,singname,type from downladorder where sid=? order by mkdata desc";
 			statement = connection.prepareStatement(sql);
 			statement.setString(1, sid);
 			resultSet = statement.executeQuery();
@@ -92,7 +92,7 @@ public class OrderfromcDaoImpl extends BaseDaoImpl<Orderfromc> implements IOrder
 		if(resultSet.next())
 			totalSize = resultSet.getInt("sid");//总条数
 		Integer rows=(page.getCurrentPage()-1)* page.getPageSize();
-		String dataSQL=" select top "+page.getPageSize()+" name,tel,fj_root,fj_name,fj_troot,fj_tname,singname,sid,type from downladorder where tel=? and sid not in( select top "+rows+" sid from downladorder order by mkdata desc) order by mkdata desc";
+		String dataSQL=" select top "+page.getPageSize()+" name,tel,fj_root,fj_name,singname,sid,type from downladorder where tel=? and sid not in( select top "+rows+" sid from downladorder order by mkdata desc) order by mkdata desc";
 		statement = connection.prepareStatement(dataSQL);
 		statement.setString(1, order.getTel());
 		resultSet = statement.executeQuery();
@@ -104,5 +104,35 @@ public class OrderfromcDaoImpl extends BaseDaoImpl<Orderfromc> implements IOrder
 		page.setTotalSize(totalSize);
 		page.setRows(listo);
 		return page;
+	}
+	/**
+	 * 查询所有符合条件的歌曲
+	 * @param order
+	 * @return
+	 * @throws Exception
+	 */
+	@Override
+	public List<Orderfromc> selAll(Orderfromc order) throws Exception {
+		Connection connection = this.getConnection();
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		Orderfromc orderfromc=null;
+		List<Orderfromc> listo=new ArrayList<Orderfromc>();
+		try{
+			String sql="select name,tel,fj_root,fj_name,singname,sid from downladorder where type1=? order by mkdata desc";
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, order.getType1());
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				orderfromc=new Orderfromc();
+				orderfromc=(Orderfromc) this.Field(orderfromc, resultSet);
+				listo.add(orderfromc);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			closeAll(connection, statement, resultSet);
+		}
+		return listo;
 	}
 }

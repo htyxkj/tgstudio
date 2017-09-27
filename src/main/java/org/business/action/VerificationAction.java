@@ -1,9 +1,5 @@
 package org.business.action;
 
-
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -13,7 +9,11 @@ import org.sms.utils.XcodeValidTool;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-
+/**
+ * 发送验证码，验证验证码是否正确
+ * @author Administrator
+ *
+ */
 public class VerificationAction extends ActionSupport{
 	HttpSession session =  ServletActionContext.getRequest().getSession();
 	public static XcodeValidTool xx;

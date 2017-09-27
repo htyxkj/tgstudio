@@ -1,0 +1,119 @@
+*{margin:0px;padding:0px;}
+body{
+	background: url(../img/one_beij.jpg) right no-repeat;
+    background-size: auto auto;
+	background-size: 100% 100%;
+	width:100%;
+	height:100%;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+}
+.yindao{
+	display:none;
+	z-index: 99;
+	background-position: center center;
+	width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    position:fixed;
+    top:0;
+}
+.xiazaiyd{
+	display:none;
+	z-index: 99;
+	background-position: center center;
+	width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    position:fixed;
+    top:0;
+}
+.main{
+	width:100%;
+	height:100%;
+}
+.singname{
+	padding-top:10%;
+	height: 10%;
+}
+.ta_c{
+	text-align: center;
+	padding-top: 10%;
+	width: 100%;
+	height:30%;
+}
+@-webkit-keyframes rotation{
+	from {
+		-webkit-transform: rotate(0deg);
+		}
+	to {
+		-webkit-transform: rotate(360deg);
+		}
+}
+.Rotation{
+	-webkit-transform: rotate(360deg);
+	animation: rotation 20s linear infinite;
+	-moz-animation: rotation 20s linear infinite;
+	-webkit-animation: rotation 20s linear infinite;
+	-o-animation: rotation 20s linear infinite;
+} 
+.img{
+	border-radius: 250px;
+	height:100%;
+}
+.bottom{
+	margin-top:15%;
+	width: 100%;
+	height:5%;
+	text-align:center;
+}
+.bottom_img{
+	padding-left:2.5em;
+	padding-right:2.5em;
+}
+.bottomDIV{
+	float:left;
+	width:32%;
+	text-align:center;
+}
+.bottomDIV img{
+	width:32%
+}
+.jdt{
+	margin-top:15%;
+	text-align:center;
+	width:100%;
+	height:5%;
+}
+.scroll{ 
+	margin-top:0.85em;
+	margin-bottom:0.85em;
+	padding:0em 0.78em 0em 0em;
+	float:left;
+	height:0.19em;
+	background-color:#909090;
+	z-index:10;
+	width: 60%;
+}
+.bar{
+	margin-bottom:0.45em;
+	height:0.19em;
+	background-color:white;
+	width:0%;
+}
+.mask{
+	margin-top:-0.98em;
+	margin-bottom:0.85em;
+	width:14px;
+	height:14px;
+	border-radius:50px;
+	border:solid rgb(100,100,100) 0px;
+	background-color:white;
+}
+.time{
+	width:15%;
+	float:left;
+	font-size:14px;
+	margin-top:0.78em;
+	color:white;
+} 

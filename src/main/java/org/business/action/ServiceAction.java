@@ -1,9 +1,5 @@
 package org.business.action;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONObject;
@@ -16,7 +12,10 @@ import org.core.accesstoken.TokenThread;
 import org.core.util.WeixinUtil;
 
 import com.opensymphony.xwork2.ActionSupport;
-
+/**
+ * 连接客服会话
+ * @author Administrator
+ */
 public class ServiceAction extends ActionSupport{
 	protected static Logger log = Logger.getLogger(InsorgAction.class);
 	private Message message=new Message();

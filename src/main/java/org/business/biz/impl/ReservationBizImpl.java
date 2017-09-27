@@ -16,7 +16,7 @@ public class ReservationBizImpl implements IReservationBiz {
 	 * @throws Exception
 	 */
 	@Override
-	public Reservation getTel(String tel) throws Exception {
+	public Integer getTel(String tel) throws Exception {
 		return this.res.selectTel(tel);
 	}
 	

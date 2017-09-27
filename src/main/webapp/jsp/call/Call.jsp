@@ -17,6 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
+	<link href="./img/ico.ico" rel="shortcut icon" />
 	<script type="text/javascript" src="./js/jquery-3.0.0.js"></script>
   </head>
   

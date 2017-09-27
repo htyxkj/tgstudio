@@ -9,6 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <base href="<%=basePath%>">
     <title>糖果录音棚客户曲歌系统</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <link href="./img/ico.ico" rel="shortcut icon" />
 	<script type="text/javascript" src="./js/jquery-3.0.0.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/getSong.css" />
 	<script type="text/javascript">
@@ -16,7 +17,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 var tel=$("#tel").val();
 			 tel(tel);
 		 }
-		 
 		 function submit(){
 			 var tel=$("#tel").val();
 			 var code=$("#code").val();

@@ -41,5 +41,15 @@ public class OrderfromcBizImpl implements IOrderfromcBiz {
 			throws Exception {
 		return this.order.selPageAll(page);
 	}
+	/**
+	 * 查询所有符合条件的歌曲
+	 * @param order
+	 * @return
+	 * @throws Exception
+	 */
+	@Override
+	public List<Orderfromc> getAll(Orderfromc order) throws Exception {
+		return this.order.selAll(order);
+	}
 
 }

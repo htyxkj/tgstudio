@@ -11,6 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <title>糖果录音棚店铺列表</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+    <link href="./img/ico.ico" rel="shortcut icon" />
 	<script type="text/javascript" src="./js/jquery-3.0.0.js"></script>
 	<script type="text/javascript">
 		 
@@ -34,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <s:iterator value="listI" var="list">
   	<div class="div1">
   		<div class="img">
-  			<img src="${list.fj_root}">
+  			<img src="${fileUrl}${list.fj_root}${list.fj_name}">
   		</div>
 	  	<div class="div2">
 	  		<div style="font-size:16px;">

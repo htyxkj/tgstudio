@@ -15,25 +15,25 @@ public class ReservationDaoImpl extends BaseDaoImpl<Reservation> implements IRes
 	 * @throws Exception
 	 */
 	@Override
-	public Reservation selectTel(String tel) throws Exception {
+	public Integer selectTel(String tel) throws Exception {
 		Connection connection = this.getConnection();
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		Reservation reservation=null;
+		Integer num=0;
 		try{
-			String sql="select count(tel) as tel from reservation where tel=?";
+			String sql="select count(tell) as tel from client where tell=?";
 			statement = connection.prepareStatement(sql);
 			statement.setString(1, tel);
 			resultSet = statement.executeQuery();
-			while (resultSet.next()) {
-				reservation=new Reservation();
-				reservation=(Reservation) this.Field(reservation, resultSet);
+			if(resultSet.next()){
+				num=resultSet.getInt("tel");
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally {
 			closeAll(connection, statement, resultSet);
 		}
-		return reservation;
+		return num;
 	}
 }

@@ -27,4 +27,11 @@ public interface IOrderfromcDao {
 	 * @throws Exception
 	 */
 	public PageInfo<Orderfromc> selPageAll(PageInfo<Orderfromc> page) throws Exception;
+	/**
+	 * 查询所有符合条件的歌曲
+	 * @param order
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Orderfromc> selAll(Orderfromc order)throws Exception;
 }

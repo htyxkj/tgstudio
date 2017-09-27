@@ -57,6 +57,19 @@
         <action name="selectAll" class="org.business.action.OrderfromcAction" method="selectAll">
         	<result name="mysong">jsp/song/mySong.jsp</result>
         </action>
+        <!-- 查询试听歌单 -->
+        <action name="audition" class="org.business.action.OrderfromcAction" method="Audition">
+        	<result name="audition" type="json">
+        		<param name="root">listO</param>
+				<param name="includeProperties">
+					\[\d+\]\.sid,
+					\[\d+\]\.singname,
+					\[\d+\]\.name,
+					\[\d+\]\.fj_root,
+					\[\d+\]\.fj_name
+				</param>
+        	</result>
+        </action>
         <!-- 查询用户下一页的数据 -->
         <action name="nextpage" class="org.business.action.OrderfromcAction" method="nextPage">
         	<result name="nextpage" type="json">
@@ -67,8 +80,6 @@
 					^rows\[\d+\]\.name,
 					^rows\[\d+\]\.fj_root,
 					^rows\[\d+\]\.fj_name,
-					^rows\[\d+\]\.fj_troot,
-					^rows\[\d+\]\.fj_tname,
 					^rows\[\d+\]\.tel,
 					^rows\[\d+\]\.type,
 					^currentPage
@@ -80,6 +91,9 @@
         <action name="selectOne" class="org.business.action.OrderfromcAction" method="selOneSong">
         	<result name="oneSong">jsp/song/shareSong.jsp</result>
         	<result name="oneMV">jsp/song/shareMV.jsp</result>
+        </action>
+        <action name="url" class="org.business.action.URLAction" method="getURL">
+        	<result name="url">jsp/url.jsp</result>
         </action>
         <!-- 获取微信js调用信息jsApiSign -->
         <action name="ApiVerifu" class="org.core.action.GetJsApiVerify" method="getApiVerifu">

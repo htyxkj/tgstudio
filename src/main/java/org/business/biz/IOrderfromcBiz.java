@@ -28,4 +28,11 @@ public interface IOrderfromcBiz {
 	 * @throws Exception
 	 */
 	public PageInfo<Orderfromc> getPageAll(PageInfo<Orderfromc> page) throws Exception;
+	/**
+	 * 查询所有符合条件的歌曲
+	 * @param order
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Orderfromc> getAll(Orderfromc order)throws Exception;
 }
