@@ -10,6 +10,8 @@ public class Insorg {
 	private String tel;//联系方式
 	private String fj_root;//附件地址
 	private String fj_name;//附件名称
+	private String epointx;//经度
+	private String epointy;//维度
 	public String getOrgcode() {
 		return orgcode;
 	}
@@ -63,5 +65,17 @@ public class Insorg {
 	}
 	public void setFj_name(String fj_name) {
 		this.fj_name = fj_name;
+	}
+	public String getEpointx() {
+		return epointx;
+	}
+	public void setEpointx(String epointx) {
+		this.epointx = epointx;
+	}
+	public String getEpointy() {
+		return epointy;
+	}
+	public void setEpointy(String epointy) {
+		this.epointy = epointy;
 	}
 }

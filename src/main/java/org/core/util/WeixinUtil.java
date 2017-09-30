@@ -227,6 +227,7 @@ public class WeixinUtil {
 	public static String uploadMedia(String url, String filePath) throws IOException {
 		String result = null;
 		File file = new File(filePath);
+		log.info(file.getPath());
 		if (!file.exists() || !file.isFile()) {
 			throw new IOException("文件不存在");
 		}

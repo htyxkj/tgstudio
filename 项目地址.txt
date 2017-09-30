@@ -1,0 +1,10 @@
+居民服务：http://jtdrp.juminfuwu.cn:88/
+安吉利  ：http://139.129.222.205:80/ajl/
+Atme    ：http://bip.atme8.com/zskx/
+达博	：http://111.198.66.76:83/bip/
+京通档案：http://115.28.191.203:8080/ers/
+糖果录音棚：http://115.28.191.203:8080/tgstudio
+安全工具管控系统：http://115.28.191.203:8080/safema
+
+七牛云  ：https://segmentfault.com/u/vip
+http://otxmma867.bkt.clouddn.com/a.txt

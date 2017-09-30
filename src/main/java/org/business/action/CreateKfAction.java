@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLDecoder;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONArray;
@@ -17,17 +20,11 @@ import org.core.accesstoken.AccessToken;
 import org.core.accesstoken.TokenThread;
 import org.core.util.WeixinUtil;
 
-public class CreateKfAction {
+import com.opensymphony.xwork2.ActionSupport;
+
+public class CreateKfAction extends ActionSupport{
 	private static Logger log = Logger.getLogger(CreateKfAction.class);
 	private Message message = new Message();  
-	private String kf_content;
-	private String nickname;
-	public void setKf_content(String kf_content) {
-		this.kf_content = kf_content;
-	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
 	public Message getMessage() {
 		return message;
 	}
@@ -95,11 +92,45 @@ public class CreateKfAction {
 	}
 	//上传客服头像
 	public void uploadheadimg(String kf,String appid,String token) throws Exception{
-		TokenThread t=new TokenThread();
-		AccessToken acc=t.accessToken;
 		String url="https://api.weixin.qq.com/customservice/kfaccount/uploadheadimg?access_token="+token+"&kf_account="+kf+"@"+appid;
-		String filePath=acc.getFileURL()+"/db_"+acc.getDbid()+"/kefu.png";
+		Locale locale = Locale.getDefault();  
+		ResourceBundle bundle = ResourceBundle.getBundle("token", locale);
+		String filePath = bundle.getString("kfImg");
+		log.info(filePath);
 		String str=WeixinUtil.uploadMedia(url, filePath);
 		log.info("设置客服头像"+str);
+	}
+	/**
+	 * 删除客服账号
+	 * @return
+	 */
+	public String deleteKF(){
+		try {
+			log.info("进行删除客服！");
+			message.setErrcode("-1");
+			HttpServletRequest request = ServletActionContext.getRequest();
+			InputStream is = request.getInputStream();
+			InputStreamReader isr = new InputStreamReader(is, "utf-8");  
+			BufferedReader br = new BufferedReader(isr);
+			String jsonstr=br.readLine();
+			jsonstr=URLDecoder.decode(jsonstr,"UTF-8");
+			isr.close();
+			is.close();
+			TokenThread t=new TokenThread();
+			AccessToken acc=t.accessToken;
+			String token=acc.getToken();
+			String appid=acc.getAppid();
+			//删除客服URL
+			String url="https://api.weixin.qq.com/customservice/kfaccount/del?access_token="+token+"&kf_account="+jsonstr+"@"+appid;
+			JSONObject jsonObj=WeixinUtil.httpsRequest(url, "GET", null);
+			log.info(jsonObj.toString());
+			if(jsonObj.getInt("errcode")==0){
+				message.setErrcode("0");
+			}
+			message.setErrmsg(jsonObj.getString("errmsg"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "msg";
 	}
 }

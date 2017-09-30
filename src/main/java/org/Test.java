@@ -2,12 +2,19 @@ package org;
 
 
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+
+
+
 
 
 
@@ -75,6 +82,18 @@ public class Test {
 //	}
 	public static void main(String[] args) {
 		try {
+
+//			URL url = ClassLoader.getSystemResource("../../img/kefu.png");
+//			System.out.println(url);
+//		    File file = new File(url.getPath());
+			String filePath="";
+			File file = new File(filePath);
+			System.out.println(file.getPath());
+			if (!file.exists() || !file.isFile()) {
+				throw new IOException("文件不存在");
+			}
+		    System.out.println(Test.class.getResource("").getPath());
+//			System.out.println(System.getProperty("user.dir"));
 //			String token="lD6OdklZNK5TPsnpsl0CXLa306iEj_C3v9x8wnHCInAZZu4sqw1KERxP37P7M621xpPRBcgplavxfmD9SoEtSQJhwM-6Hz1ykTSeUKZZXWkPuwe-8IYvOs8efteNj6OMIVVeAGAZMM";
 //			String url="https://api.weixin.qq.com/customservice/kfaccount/add?access_token="+token;
 //			String str="{\"kf_account\" : \"li_zhengguo@wx515d2c7b6c6a2339\",\"nickname\" : \"dd\"}";

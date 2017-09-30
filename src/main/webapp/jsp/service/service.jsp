@@ -57,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<li><img alt="糖果录音" style="height:30px;" src="./img/logo.png"> </li>
   </ul>
   <s:iterator value="listI" var="list">
-  	<div class="div1" onclick="javascript:kf('${kfURL}${list.service}@');" >
+  	<!--<div class="div1" onclick="javascript:kf('${kfURL}${list.service}@');" >
   		<div class="img">
   			<img src="${fileUrl}${list.fj_root}${list.fj_name}">
   		</div>
@@ -66,6 +66,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  			<s:property value="%{#list.orgname}"/>
 	  		</div>
 	  		<div class="dz">地址:<s:property value="%{#list.address}"/></div>
+		</div>
+	</div>-->
+	<div class="div2">
+		<div>
+			<span style=""><s:property value="%{#list.orgname}"/></span>
+			<img alt="电话" src="./img/dianhua.png">
+			<s:property value="%{#list.tel}"/>
+			<s:property value="%{#list.tel}"/>
+			<img alt="位置" src="./img/dingwei.png">
+			位置
+		</div>
+		<div>
+			<img alt="位置" src="./img/xiaoxi.png">
+			上班时间
 		</div>
 	</div>
   </s:iterator>
