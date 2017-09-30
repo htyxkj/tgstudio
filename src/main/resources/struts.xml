@@ -95,6 +95,8 @@
         <action name="url" class="org.business.action.URLAction" method="getURL">
         	<result name="url">jsp/url.jsp</result>
         </action>
+        <action name="createKF" class="org.business.action.CreateKfAction" method="createKF">
+        </action>
         <!-- 获取微信js调用信息jsApiSign -->
         <action name="ApiVerifu" class="org.core.action.GetJsApiVerify" method="getApiVerifu">
         	<result name="jsApiSign" type="json">

@@ -3,7 +3,7 @@
   <servlet>
     <servlet-name>GetTokenServlet</servlet-name>
     <servlet-class>
-			org.core.action.GetTokenServlet
+			org.core.action.InitServlet
 		</servlet-class>
     <load-on-startup>3</load-on-startup>
   </servlet>

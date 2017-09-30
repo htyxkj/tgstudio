@@ -3,15 +3,12 @@ package org.business.action;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.views.xslt.ArrayAdapter;
 import org.business.biz.IInsorgBiz;
 import org.business.biz.impl.InsorgBizImpl;
 import org.business.entity.Insorg;
