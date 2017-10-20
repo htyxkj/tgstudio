@@ -20,7 +20,7 @@ public class InsorgDaoImpl extends BaseDaoImpl<Insorg> implements IInsorgDao {
 		Insorg insorg=null;
 		List<Insorg> listI=new ArrayList<Insorg>();
 		try{
-			String sql="select orgcode,orgname,address,tel,service,fj_root,fj_name,epointx,epointy from insorg where scm is not null and service1 is not null and service is not null";
+			String sql="select orgcode,orgname,address,tel,service,fj_root,fj_name,epointx,epointy,worktime from insorg where scm is not null and service1 is not null and service is not null";
 			statement = connection.prepareStatement(sql);
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
@@ -57,6 +57,27 @@ public class InsorgDaoImpl extends BaseDaoImpl<Insorg> implements IInsorgDao {
 			closeAll(connection, statement, resultSet);
 		}
 		return listI;
+	}
+	//查询市场部微信客服
+	@Override
+	public String selM() throws Exception {
+		Connection connection = this.getConnection();
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		String  service=null;
+		try{
+			String sql="select  service from insorg where orgname like '%市场部%' ";
+			statement = connection.prepareStatement(sql);
+			resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				service=resultSet.getString("service");
+			}
+		}catch(Exception e){ 
+			e.printStackTrace();
+		}finally {
+			closeAll(connection, statement, resultSet);
+		}
+		return service;
 	}
 
 }

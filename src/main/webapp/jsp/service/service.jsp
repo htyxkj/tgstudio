@@ -39,15 +39,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				alert("当前指定客服未在线,请您稍后再来!");
 			}
 		}
+		function call(tel){
+			window.location.href = 'tel://'+tel;
+		}
+		function weizi(title,addr,epoint){ 
+			var url="http://apis.map.qq.com/tools/poimarker?type=0&marker=coord:"+epoint+";title:"+title+";addr:"+addr+"&key=JA3BZ-WWLRK-4UQJG-ADDJB-5CDJH-X6B7G&referer=tgweixin";
+			window.location.href = url;
+		}
     </script>
     <style type="text/css">
+    	*{margin:0; padding:0;}
     	body{background-color:#EFEFEF;margin:0px;padding:0px; }
     	.ul1{width: 100%;margin:0px;padding:0px;background-color:white;}
     	.ul1 li{width: 100%;text-align: center;margin:0px;padding:0px;font-size:30px;padding-top:8px;padding-bottom:8px;list-style-type:none; }
     	a{text-decoration:none;}
-    	.div1 {height:120px;background-color:white;margin:20px 10px 0 10px;width:auto;}
-    	.div2 {float: left;margin: 30px 0px 0px 10px;width:calc(100% - 130px);}
-    	.img{height: 100px;width: 100px;float: left;margin: 10px 10px 10px 10px;}
+    	.div1 {margin:20px 0px 0 0px;}
+    	.div2 {float: left;margin: 0px 0px 0px 3%;width:calc(94% + 2px);color:white;background-color:#5e9900;line-height:30px;margin-top:-30px;position:absolute;border-radius:0px 0px 5px 5px;opacity: 0.8;}
+    	.img{height: 20px;width: 20px;vertical-align:text-bottom;}
     	.dz{color: #868686;word-break:break-word;padding:0px;margin:0px;}
     </style>
   </head>
@@ -57,31 +65,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<li><img alt="糖果录音" style="height:30px;" src="./img/logo.png"> </li>
   </ul>
   <s:iterator value="listI" var="list">
-  	<!--<div class="div1" onclick="javascript:kf('${kfURL}${list.service}@');" >
-  		<div class="img">
-  			<img src="${fileUrl}${list.fj_root}${list.fj_name}">
-  		</div>
-	  	<div class="div2">
-	  		<div style="font-size:16px;">
-	  			<s:property value="%{#list.orgname}"/>
-	  		</div>
-	  		<div class="dz">地址:<s:property value="%{#list.address}"/></div>
+  <div class="div1">
+  	<div style="margin-left:3%;width:94%;border-radius:5px;border:1px solid #5e9900;">
+  		<img onclick="javascript:kf('${kfURL}${list.service}@')" alt="" src="${fileUrl}${list.fj_root}${list.fj_name}" style="margin-bottom:-4px;width:100%;height:100%;padding:0px;">
+  	</div>
+  	<div class="div2">
+		<div style="float:left;margin-left:10px;">
+			<div style="width:80px;float:left;"><s:property value="%{#list.orgname}"/></div>
+			<img class="img" alt="电话" src="./img/dianhua.png" onclick="javascript:call('${list.tel}')">
+			&nbsp;&nbsp;
+			<img class="img" alt="位置" src="./img/dingwei.png" onclick="javascript:weizi('${list.orgname}','${list.address}','${list.epointy},${list.epointx}')">
 		</div>
-	</div>-->
-	<div class="div2">
-		<div>
-			<span style=""><s:property value="%{#list.orgname}"/></span>
-			<img alt="电话" src="./img/dianhua.png">
-			<s:property value="%{#list.tel}"/>
-			<s:property value="%{#list.tel}"/>
-			<img alt="位置" src="./img/dingwei.png">
-			位置
+		<div style="float:right;margin-right:10px;">
+			<img onclick="javascript:kf('${kfURL}${list.service}@')" class="img" alt="位置" src="./img/xiaoxi.png" >
+			<span>: <s:property value="%{#list.worktime}"/></span>
 		</div>
-		<div>
-			<img alt="位置" src="./img/xiaoxi.png">
-			上班时间
-		</div>
-	</div>
+  	</div>
+  </div>
   </s:iterator>
+  <br/>
   </body>
 </html>

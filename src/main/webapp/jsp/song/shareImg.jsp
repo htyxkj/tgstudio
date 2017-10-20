@@ -16,10 +16,8 @@
 <meta name="apple-touch-fullscreen" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link href="./img/ico.ico" rel="shortcut icon" />
-<link rel="stylesheet" href="./css/shareSong.jsp.css">
 <script type="text/javascript" src="./js/jquery-3.0.0.js"></script>
 <script type="text/javascript" src="./js/jweixin-1.2.0.js"></script>
-<script type="text/javascript" src="./js/shareSong.jsp.js"></script>
 <script type="text/javascript">
 	$(function(){
 		$("#yindao").hide();
@@ -93,34 +91,45 @@
 		 	}
 		});
 	};
+	function fx(){
+		$("#yindao").show();
+		setTimeout("hidexz()","4000");
+	}
+	function hidexz(){
+		$("#yindao").hide();
+	}
+	function xiazai(root){
+		window.location.href=root;
+	}
 </script>
+<style type="text/css">
+body{margin:0px;padding:0px;}
+.yindao{
+	display:none;
+	z-index: 99;
+	background-position: center center;
+	width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    position:fixed;
+    top:0;
+}
+</style>
 </head>
 <body>
-	<div class="main">
-		<div class="singname">
-			<div style="text-align:center;color: white;font-size:20px;"><s:property value="orderfc.singname"/></div>
-			<div style="text-align:center;color: #E4EBF3;font-size:12px;"><s:property value="orderfc.name"/></div>
-		</div>
-		<div class="ta_c">
-			<img id="imgxz" class="Rotation img" src="./img/one_xuanzhuan.png"/>
-		</div>
-		<div class="bottom">
-			<div class="bottomDIV"><img alt="下载" src="./img/one_xz.png" onclick="javascript:xiazai('${dowUrl}${orderfc.fj_root}${orderfc.fj_name}')"></div>
-			<div class="bottomDIV"><img id="bfzt" alt="播放/暂停" src="./img/one_zt.png" onclick="javascritp:playPause();"></div>
-			<div class="bottomDIV"><img alt="分享" src="./img/one_fx.png" onclick="javascript:fx()"></div>
-		</div>
-		<div class="jdt">
-			<div id="timeN" class="time" style="margin-left:1em;">0:00</div>
-			<div class="scroll" id="scroll">
-				<div class="bar" id="bar"></div>
-				<div class="mask" id="mask"></div> 
-			</div>
-			<div id="timeAll" class="time" >0:00</div>
+	<div style="margin:3px 3px 3px 0px;width:100%">
+		<img style="width:100%" src="${fileUrl}${orderfc.fj_root}${orderfc.fj_name}"/>
+	</div>
+	<div style="margin-left:5px;margin-right:5px;">
+		<div style="font-size:20px;padding-top:0.6em;">
+		<b><s:property value="orderfc.singname"/>&nbsp;</b>
+		<span style="font-size:12px;padding-top:0.1em;"><s:property value="orderfc.name"/></span>
+		<img style="float:right;width:28px;" alt="分享" src="./img/v_fx.png" onclick="javascript:fx()">
+		<img style="float:right;width:28px;padding-right:10px;" alt="下载" src="./img/v_xz.png" onclick="javascript:xiazai('${dowUrl}${orderfc.fj_root}${orderfc.fj_name}')">
 		</div>
 	</div>
 	<div class="yindao" id="yindao" >  
 		<img style="width:100%;height:100%;z-index:100;background: rgba(21,22,25,0.4);" src='./img/fxyd.png'/>
 	</div>
-	<audio id="audio" autoplay loop="loop" src="${fileUrl}${orderfc.fj_root}${orderfc.fj_name}"></audio>
 </body>
 </html>

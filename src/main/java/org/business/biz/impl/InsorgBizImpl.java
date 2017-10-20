@@ -17,5 +17,10 @@ public class InsorgBizImpl implements IInsorgBiz {
 	public List<Insorg> getALl() throws Exception {
 		return this.insdao.selectALl();
 	}
+	//查询市场部客服微信
+	@Override
+	public String getM() throws Exception {
+		return this.insdao.selM();
+	}
 
 }

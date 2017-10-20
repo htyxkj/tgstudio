@@ -38,10 +38,6 @@ public class VerificationAction extends ActionSupport{
 		this.tels = tels;
 	}
 	public String verificationTel(){
-		
-		String phone = tels;
-        String content="【糖果录音棚】您好，您的验证码是：[code],验证码的有效时间为10分钟";
-        //String result = XcodeValidTool.getXcode(phone,content);
 		return "msg";
 	}
 	

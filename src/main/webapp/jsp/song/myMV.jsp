@@ -10,7 +10,7 @@
 <html>
 <head>
 <base href="<%=basePath%>">
-<title>糖果录音-我的歌曲</title>
+<title>糖果录音-我的MV</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
 <link href="./img/ico.ico" rel="shortcut icon" />
 <link rel="stylesheet" href="./css/weui.min.css">
@@ -46,7 +46,7 @@
 	}
 	//加载数据
 	function getpage(currentPage){
-		var data={'currentPage':currentPage,'type':'m'};
+		var data={'currentPage':currentPage,'type':'v'};
 		$.ajax({
 			type: 'POST',
 			url: "nextpage",
@@ -56,8 +56,17 @@
 				for (var i = 0; i < data.rows.length; i++) {
 					var row=data.rows[i];
 					var html = '';
+					var htmlimg='';
+					if(row.type=='m'){
+						htmlimg='<img id="ztimg" src="./img/music.png"  style="width:36px;margin-top:15px;margin-right:8px"  onclick="javascript:playPause(this)" >'+
+						   '<s:hidden name="fj_root" value="%{fileUrl}'+row.fj_root+row.fj_name+'"></s:hidden>'+
+						   '<s:hidden name="bfzt" value="2"></s:hidden>' ;
+					}else{
+						htmlimg='<img src="./img/vodie.png"  style="width:36px;margin-top:15px;margin-right:8px" onclick="javascript:xiangqing('+row.sid+')">';
+					}
+					
+					
 					html = html + ['<div class="div1" >'+
-					               '<div onclick="javascript:xiangqing('+"'"+row.sid+"'"+')">'+
 					               '<s:hidden name="sid" value="'+row.sid+'"></s:hidden>'+
 					               '<div class="img">'+
 					               '<img src="./img/list_zhuanji.png" style="height: 40px;">'+
@@ -72,11 +81,8 @@
 								   '</div>'+
 								   '</div>'+
 								   '</div>'+
-								   '</div>'+
 								   '<div style="float:right;text-align:center;line-height:40px;">'+
-								   '<img id="ztimg" src="./img/music.png"  style="width:36px;margin-top:15px;margin-right:8px"  onclick="javascript:playPause(this)" >'+
-								   '<s:hidden name="fj_root" value="%{fileUrl}'+row.fj_root+row.fj_name+'"></s:hidden>'+
-								   '<s:hidden name="bfzt" value="2"></s:hidden>'+
+								   htmlimg+
 								   '<img alt="下载" src="./img/list_xz.png" style="width:36px;margin-top:15px;margin-right:8px"'+
 								   'onclick="javascript:xiazai('+"'${dowUrl}"+row.fj_root+row.fj_name+"'"+')"/>'+
 								   '</div></div>'].join("");
@@ -139,7 +145,7 @@ body {
 		</li>
 	</ul>
 	<s:if test="listO.size()==0">
-		<p style="text-align: center;">您暂无可下载的歌曲!</p>
+		<p style="text-align: center;">您暂无可下载的MV!</p>
 	</s:if>
 	<s:else>
 		<s:iterator value="listO" var="list">
@@ -161,9 +167,14 @@ body {
 					</div>
 				</div>
 				<div style="float:right;text-align:center;line-height:40px;">
-					<img id="ztimg" src="./img/music.png"  style="width:36px;margin-top:15px;margin-right:8px"  onclick="javascript:playPause(this)" >
-					<s:hidden name="fj_root" value="%{fileUrl}%{#list.fj_root}%{#list.fj_name}"></s:hidden>
-					<s:hidden name="bfzt" value="2"></s:hidden>
+					<s:if test='%{#list.type=="m"}'>
+						<img id="ztimg" src="./img/music.png"  style="width:36px;margin-top:15px;margin-right:8px"  onclick="javascript:playPause(this)" >
+						<s:hidden name="fj_root" value="%{fileUrl}%{#list.fj_root}%{#list.fj_name}"></s:hidden>
+						<s:hidden name="bfzt" value="2"></s:hidden>
+					</s:if>
+					<s:else>
+						<img src="./img/vodie.png"  style="width:36px;margin-top:15px;margin-right:8px" onclick="javascript:xiangqing('${list.sid}')">
+					</s:else>
 					<img alt="下载" src="./img/list_xz.png" style="width:36px;margin-top:15px;margin-right:8px" onclick="javascript:xiazai('${dowUrl}${list.fj_root}${list.fj_name}')"/>
 				</div>
 			</div>

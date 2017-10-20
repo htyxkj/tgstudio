@@ -7,7 +7,6 @@ import java.net.URLDecoder;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONArray;
@@ -49,11 +48,17 @@ public class CreateKfAction extends ActionSupport{
 			String token=acc.getToken();
 			String appid=acc.getAppid();
 			JSONArray jsonArr_1=jsonObj_1.getJSONArray("kf_list");//BIP平台提交的客服列表
+//			String str="[{\"nickname\":\"劲松店-王玉东\",\"kfwx_account\":\"wangyudong3\",\"kf_account\":\"wangyudong\"},{\"nickname\":\"雍和宫1店-李正国\",\"kfwx_account\":\"li_zhengguo\",\"kf_account\":\"LiZhengguo\"},{\"kfwx_account\":\"li_zhengguo\",\"kf_account\":\"LiZhengguo\"}]";
+//			JSONArray jsonArr_1=JSONArray.fromObject(str);
+			log.info(jsonArr_1);
 			String errmsg="";
 			for(int j=0;j<jsonArr_1.size();j++){
 				JSONObject kfJSON=jsonArr_1.getJSONObject(j);
+				log.info(kfJSON);
 				String kf_account=kfJSON.getString("kf_account");
-				String nickname= kfJSON.getString("nickname");
+				String nickname="糖果录音棚";
+				if(kfJSON.containsKey("nickname"))
+					nickname = kfJSON.getString("nickname");
 				String kfwx_account = kfJSON.getString("kfwx_account");
 				JSONObject josnFH=this.addKF(kf_account,nickname,kfwx_account, token, appid);
 				if(josnFH.getInt("errcode")!=0){
@@ -64,6 +69,8 @@ public class CreateKfAction extends ActionSupport{
 				message.setErrcode("0");
 			}
 			message.setErrmsg(errmsg);
+			log.info(message.getErrcode());
+			log.info(message.getErrmsg());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -71,6 +78,7 @@ public class CreateKfAction extends ActionSupport{
 	}
 	//进行添加客服账号
 	public JSONObject addKF(String kf,String name,String kfwx_account,String token,String appid) throws Exception{
+		log.info(kf+"**"+name+"**"+kfwx_account+"**"+token+"**"+appid);
 		String outputStr="{\"kf_account\" : \""+kf+"@"+appid+"\",\"nickname\" : \""+name+"\"}";
 		String url="https://api.weixin.qq.com/customservice/kfaccount/add?access_token="+token;
 		JSONObject jsonObj= WeixinUtil.httpsRequest(url, "POST", outputStr);
@@ -81,13 +89,15 @@ public class CreateKfAction extends ActionSupport{
 			jsonObj=WeixinUtil.httpsRequest(url, "POST", outputStr);
 			log.info("创建客服账号成功，进行邀请绑定，返回码："+jsonObj.getString("errcode")+"客服账号："+kf);
 		}else if(jsonObj.getInt("errcode")==65406){//客服已存在  进行客服昵称修改
-			url="https://api.weixin.qq.com/customservice/kfaccount/inviteworker?access_token="+token;
-			outputStr="{\"kf_account\" : \""+kf+"@"+appid+"\",\"invite_wx\" : \""+name+"\"}";
+			url="https://api.weixin.qq.com/customservice/kfaccount/update?access_token="+token;
+			outputStr="{\"kf_account\" : \""+kf+"@"+appid+"\",\"nickname\" : \""+name+"\"}";
+			log.info(outputStr);
 			jsonObj = WeixinUtil.httpsRequest(url, "POST", outputStr);
 			log.info("客服存在，进行修改客服昵称,修改结果："+jsonObj.toString());
 		}
 		//设置客服头像
 		this.uploadheadimg(kf, appid, token);
+		log.info(jsonObj); 
 		return jsonObj;
 	}
 	//上传客服头像

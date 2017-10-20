@@ -32,16 +32,13 @@ public class XcodeValidTool extends Thread {
 			}
 			_keycode.put(phon, xcode);
 			Calendar c = Calendar.getInstance();
-			c.add(Calendar.MINUTE, 60000);
+//			c.add(Calendar.MINUTE, 60000);
+			c.add(Calendar.MINUTE, 10);
 			long edd = c.getTimeInMillis();
 			_keycodeValidt.put(phon + "_" + xcode, edd);
-
 		}
 		return result;
-		
 	}
-	
-	
 	public static String SendIM(String phonnum, String content) {
 		// 连接超时及读取超时设置
 		System.setProperty("sun.net.client.defaultConnectTimeout", "30000"); // 连接超时：30秒

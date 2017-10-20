@@ -104,4 +104,5 @@ public class InsorgAction extends ActionSupport {
 		}
 		return "insorg";
     }
+	
 }

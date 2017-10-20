@@ -7,7 +7,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html style="height: 100%">
   <head>
     <base href="<%=basePath%>">
-    <title>糖果录音棚客户取歌系统</title>
+    <title>糖果录音棚客户MV系统</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
     <link href="./img/ico.ico" rel="shortcut icon" />
 	<script type="text/javascript" src="./js/jquery-3.0.0.js"></script>
@@ -112,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <body class="body">
     	<div>
 		   	<div style="width:70%;position:absolute;left:15%;top:43%">
-				<form id="form" action="selectAll?type=A" name="f" method="post">
+				<form id="form" action="selectAll?type=B" name="f" method="post">
 					<div class="input_outer">
 						<span class="u_user"></span>
 						<input name="tel" id="tel" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入手机号">

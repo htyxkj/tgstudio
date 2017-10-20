@@ -12,6 +12,7 @@ public class Insorg {
 	private String fj_name;//附件名称
 	private String epointx;//经度
 	private String epointy;//维度
+	private String worktime;//上班时间
 	public String getOrgcode() {
 		return orgcode;
 	}
@@ -77,5 +78,11 @@ public class Insorg {
 	}
 	public void setEpointy(String epointy) {
 		this.epointy = epointy;
+	}
+	public String getWorktime() {
+		return worktime;
+	}
+	public void setWorktime(String worktime) {
+		this.worktime = worktime;
 	}
 }

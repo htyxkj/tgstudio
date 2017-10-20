@@ -1,30 +1,35 @@
 package org.business.quartzPackage;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.log4j.Logger;
 import org.business.biz.IWxchatBiz;
 import org.business.biz.impl.WxchatBizImpl;
 import org.business.entity.Wxchat;
 import org.core.accesstoken.AccessToken;
+import org.core.accesstoken.TokenThread;
 import org.core.util.WeixinUtil;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+
+
 public class WeiXinChat implements Job{
+	protected static Logger log = Logger.getLogger(WeiXinChat.class);
 	/***
 	 * 从微信服务器调取24小时内的聊天记录
 	 */
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		try {
-			AccessToken acc=new AccessToken();
+			log.info("获取客服聊天记录");
+			TokenThread t=new TokenThread();
+			AccessToken acc=t.accessToken;
 			double doubleTime = (Math.floor(System.currentTimeMillis() / 60000L));
 	        //往下取整 1.9=> 1.0
 	        long floorValue = new Double(doubleTime).longValue()*60;
@@ -51,6 +56,7 @@ public class WeiXinChat implements Job{
 	public void getChatRecord(String requestUrl,String requestMethod,String otputStr,long starttime,long endtime,Integer msgid,String token) throws Exception{
 		otputStr="{\"starttime\":"+starttime+",\"endtime\" : "+endtime+",\"msgid\" :"+msgid+" ,\"number\" : 10000}";
 		JSONObject jsonObj = WeixinUtil.httpsRequest(requestUrl, "POST", otputStr);
+		log.info(jsonObj);
 		if(jsonObj.containsKey("number"))
 		if(jsonObj.getInt("number")==10000){
 			//可能还有数据为获取

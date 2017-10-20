@@ -39,6 +39,9 @@
         <!-- 连接客服 -->
         <action name="service" class="org.business.action.ServiceAction" method="service">
         </action>
+        <action name="marketService" class="org.business.action.ServiceAction" method="marketService">
+        	<result name="closeMS">jsp/service/marketService.jsp</result>
+        </action>
         <!-- 客服列表 -->
         <action name="insorg" class="org.business.action.InsorgAction" method="insorg">
         	<result name="insorg">jsp/service/service.jsp</result>
@@ -56,7 +59,13 @@
         <!-- 查询用户歌单 -->
         <action name="selectAll" class="org.business.action.OrderfromcAction" method="selectAll">
         	<result name="mysong">jsp/song/mySong.jsp</result>
+        	<result name="mymv">jsp/song/myMV.jsp</result>
+        	<result name="myimg">jsp/song/myImg.jsp</result>
         </action>
+        <!-- 查询用户MV
+        <action name="selectAllMV" class="org.business.action.OrderfromcAction" method="selectAllMV">
+        	<result name="mymv">jsp/song/myMV.jsp</result>
+        </action> -->
         <!-- 查询试听歌单 -->
         <action name="audition" class="org.business.action.OrderfromcAction" method="Audition">
         	<result name="audition" type="json">
@@ -88,9 +97,10 @@
 			</result>
         </action>
         
-        <action name="selectOne" class="org.business.action.OrderfromcAction" method="selOneSong">
+        <action name="selectOne" class="org.business.action.OrderfromcAction" method="selOne">
         	<result name="oneSong">jsp/song/shareSong.jsp</result>
         	<result name="oneMV">jsp/song/shareMV.jsp</result>
+        	<result name="oneImg">jsp/song/shareImg.jsp</result>
         </action>
         <action name="url" class="org.business.action.URLAction" method="getURL">
         	<result name="url">jsp/url.jsp</result>

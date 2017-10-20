@@ -22,7 +22,7 @@ public class ReservationDaoImpl extends BaseDaoImpl<Reservation> implements IRes
 		Reservation reservation=null;
 		Integer num=0;
 		try{
-			String sql="select count(tell) as tel from client where tell=?";
+			String sql="select count(tel) as tel from client where tel=?";
 			statement = connection.prepareStatement(sql);
 			statement.setString(1, tel);
 			resultSet = statement.executeQuery();
