@@ -121,6 +121,6 @@
 	<div class="yindao" id="yindao" >  
 		<img style="width:100%;height:100%;z-index:100;background: rgba(21,22,25,0.4);" src='./img/fxyd.png'/>
 	</div>
-	<audio id="audio" autoplay loop="loop" src="${fileUrl}${orderfc.fj_root}${orderfc.fj_name}"></audio>
+	<audio id="audio" preload="preload" autoplay loop="loop" src="${fileUrl}${orderfc.fj_root}${orderfc.fj_name}"></audio>
 </body>
 </html>

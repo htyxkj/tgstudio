@@ -136,7 +136,7 @@ public class OrderfromcDaoImpl extends BaseDaoImpl<Orderfromc> implements IOrder
 		Orderfromc orderfromc=null;
 		List<Orderfromc> listo=new ArrayList<Orderfromc>();
 		try{
-			String sql="select orname,ortel,fj_root,fj_name,singname,onlyid from orderfromc  where stype=?  order by mkdate desc";
+			String sql="select orname,ortel,fj_root,fj_name,singname,onlyid from orderfromc  where stype=? and isdown =1 order by mkdate desc";
 			statement = connection.prepareStatement(sql);
 			statement.setString(1, order.getType());
 			resultSet = statement.executeQuery();

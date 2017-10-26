@@ -53,9 +53,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	.ul1{width: 100%;margin:0px;padding:0px;background-color:white;}
     	.ul1 li{width: 100%;text-align: center;margin:0px;padding:0px;font-size:30px;padding-top:8px;padding-bottom:8px;list-style-type:none; }
     	a{text-decoration:none;}
-    	.div1 {margin:20px 0px 0 0px;}
-    	.div2 {float: left;margin: 0px 0px 0px 3%;width:calc(94% + 2px);color:white;background-color:#5e9900;line-height:30px;margin-top:-30px;position:absolute;border-radius:0px 0px 5px 5px;opacity: 0.8;}
-    	.img{height: 20px;width: 20px;vertical-align:text-bottom;}
+    	.div1 {margin:10px 0px 0 0px;width: 48%;float:left;margin-left:1%}
+    	.div2 {margin: 0px 0px 0px 3%;width:calc(94% + 2px);color:white;background-color:#5e9900;line-height:30px;margin-top:-40px;border-radius:0px 0px 10px 10px;opacity: 0.8;}
+    	.img{height: 16px;width: 16px;vertical-align:text-bottom;}
     	.dz{color: #868686;word-break:break-word;padding:0px;margin:0px;}
     </style>
   </head>
@@ -65,20 +65,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<li><img alt="糖果录音" style="height:30px;" src="./img/logo.png"> </li>
   </ul>
   <s:iterator value="listI" var="list">
+    
   <div class="div1">
   	<div style="margin-left:3%;width:94%;border-radius:5px;border:1px solid #5e9900;">
   		<img onclick="javascript:kf('${kfURL}${list.service}@')" alt="" src="${fileUrl}${list.fj_root}${list.fj_name}" style="margin-bottom:-4px;width:100%;height:100%;padding:0px;">
   	</div>
   	<div class="div2">
-		<div style="float:left;margin-left:10px;">
+		<div style="margin-left:10px; font-size:16px;line-height:20px">
 			<div style="width:80px;float:left;"><s:property value="%{#list.orgname}"/></div>
+			&nbsp;&nbsp;
 			<img class="img" alt="电话" src="./img/dianhua.png" onclick="javascript:call('${list.tel}')">
 			&nbsp;&nbsp;
 			<img class="img" alt="位置" src="./img/dingwei.png" onclick="javascript:weizi('${list.orgname}','${list.address}','${list.epointy},${list.epointx}')">
-		</div>
-		<div style="float:right;margin-right:10px;">
+			<br/>
 			<img onclick="javascript:kf('${kfURL}${list.service}@')" class="img" alt="位置" src="./img/xiaoxi.png" >
-			<span>: <s:property value="%{#list.worktime}"/></span>
+			<span>:<s:property value="%{#list.worktime}"/></span>
 		</div>
   	</div>
   </div>

@@ -93,7 +93,7 @@ public class ServiceAction extends ActionSupport{
 						+ access_token;
 				String str = "{\"touser\":\""
 						+ openid
-						+ "\",\"msgtype\":\"text\",\"text\":{\"content\":\"您好，很高兴为您服务\"},\"customservice\":{\"kf_account\": \""
+						+ "\",\"msgtype\":\"text\",\"text\":{\"content\":\"您好，很高兴为您服务!\"},\"customservice\":{\"kf_account\": \""
 						+ kf_account + appid + "\"}}";
 				log.info(str);
 				JSONObject _jsonObj = weixUtil.httpsRequest(whUrl,requestMethod, str);
@@ -150,11 +150,11 @@ public class ServiceAction extends ActionSupport{
 			log.info(jsonObj.toString());
 			String content="";
 			if (jsonObj.getInt("errcode") == 0) {
-				content="您好,很高兴为您服务!";
+				content="您好，很高兴为您服务!";
 			}else if(jsonObj.getInt("errcode") == 65415){
-				content="当前指定客服未在线,请您稍后再来!";
+				content="当前指定客服未在线，请您稍后再来!";
 			}else if(jsonObj.getInt("errcode") == 65414){
-				content="您当前正在被其他客服接待！";
+				content="您当前正在被其他客服接待,请回复“转接+店名”,客服稍后会为您服务!";
 			}
 			// 发送问候语
 			String whUrl = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token="

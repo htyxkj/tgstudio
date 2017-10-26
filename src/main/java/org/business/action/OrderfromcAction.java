@@ -169,6 +169,7 @@ public class OrderfromcAction extends ActionSupport{
 		try {
 			orderfc=order.getOne(sid);
 			String singName=orderfc.getSingname();
+			if(singName!=null&&!singName.equals(""))
 			singName=singName.split("-")[0];
 			orderfc.setSingname(singName);
 			if(orderfc==null)
