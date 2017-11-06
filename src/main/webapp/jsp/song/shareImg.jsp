@@ -21,6 +21,7 @@
 <script type="text/javascript">
 	$(function(){
 		$("#yindao").hide();
+		AndroidOriphone();
 		share();
 	});
 	function share(){
@@ -101,6 +102,14 @@
 	function xiazai(root){
 		window.location.href=root;
 	}
+	function AndroidOriphone(){
+		var u = navigator.userAgent;
+		if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
+			
+		} else if (u.indexOf('iPhone') > -1||u.indexOf('iPad') > -1) {//苹果手机
+			$("img[name='xiazai']").hide();
+		}
+	}
 </script>
 <style type="text/css">
 body{margin:0px;padding:0px;}
@@ -125,7 +134,7 @@ body{margin:0px;padding:0px;}
 		<b><s:property value="orderfc.singname"/>&nbsp;</b>
 		<span style="font-size:12px;padding-top:0.1em;"><s:property value="orderfc.name"/></span>
 		<img style="float:right;width:28px;" alt="分享" src="./img/v_fx.png" onclick="javascript:fx()">
-		<img style="float:right;width:28px;padding-right:10px;" alt="下载" src="./img/v_xz.png" onclick="javascript:xiazai('${dowUrl}${orderfc.fj_root}${orderfc.fj_name}')">
+		<img style="float:right;width:28px;padding-right:10px;" name="xiazai" alt="下载" src="./img/v_xz.png" onclick="javascript:xiazai('${dowUrl}${orderfc.fj_root}${orderfc.fj_name}')">
 		</div>
 	</div>
 	<div class="yindao" id="yindao" >  

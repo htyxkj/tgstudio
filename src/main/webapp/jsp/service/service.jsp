@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						}else if(data.errcode==65401){
 							alert("无效客服帐号");
 						}else if(data.errcode==65414){
-							alert("您当前正在被其他客服接待！");
+							alert("您当前正在被其他客服接待,请回复“转接+店名”,客服稍后会为您服务!");
 						}
 					},
 					error:function (data) {

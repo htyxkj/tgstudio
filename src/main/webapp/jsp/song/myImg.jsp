@@ -20,8 +20,9 @@
 <script src="./js/jquery-weui.js"></script> 
 <script type="text/javascript">
 	$(function(){
-		
+		AndroidOriphone();
 	});
+	
 	var currentPage=${currentPage};//当前页数
 	var totalPage=${totalPage};//总页数
 	function playPause(obj){
@@ -77,6 +78,7 @@
 								   '</div></div>'].join("");
 							$("#liebiao").append($(html));
 				};
+				AndroidOriphone();
 			},
 			error:function (data) {
 				alert("出错了");
@@ -85,6 +87,14 @@
 	}
 	function xiangqing(sid){
 		window.location.href ='selectOne?sid='+sid;
+	}
+	function AndroidOriphone(){
+		var u = navigator.userAgent;
+		if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
+			
+		} else if (u.indexOf('iPhone') > -1||u.indexOf('iPad') > -1) {//苹果手机
+			$("img[name='xiazai']").hide();
+		}
 	}
     </script>
 <style type="text/css">

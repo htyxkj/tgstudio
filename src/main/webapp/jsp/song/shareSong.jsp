@@ -23,6 +23,7 @@
 <script type="text/javascript">
 	$(function(){
 		$("#yindao").hide();
+		AndroidOriphone();
 		share();
 	});
 	function share(){
@@ -93,6 +94,14 @@
 		 	}
 		});
 	};
+	function AndroidOriphone(){
+		var u = navigator.userAgent;
+		if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
+			
+		} else if (u.indexOf('iPhone') > -1||u.indexOf('iPad') > -1) {//苹果手机
+			$("img[name='xiazai']").hide();
+		}
+	}
 </script>
 </head>
 <body>
@@ -105,7 +114,7 @@
 			<img id="imgxz" class="Rotation img" src="./img/one_xuanzhuan.png"/>
 		</div>
 		<div class="bottom">
-			<div class="bottomDIV"><img alt="下载" src="./img/one_xz.png" onclick="javascript:xiazai('${dowUrl}${orderfc.fj_root}${orderfc.fj_name}')"></div>
+			<div class="bottomDIV"><img name="xiazai" alt="下载" src="./img/one_xz.png" onclick="javascript:xiazai('${dowUrl}${orderfc.fj_root}${orderfc.fj_name}')"></div>
 			<div class="bottomDIV"><img id="bfzt" alt="播放/暂停" src="./img/one_zt.png" onclick="javascritp:playPause();"></div>
 			<div class="bottomDIV"><img alt="分享" src="./img/one_fx.png" onclick="javascript:fx()"></div>
 		</div>

@@ -41,50 +41,24 @@ public class ServiceAction extends ActionSupport{
 			HttpSession session =  ServletActionContext.getRequest().getSession();
 			log.info("session");
 			log.info(session);
-			// 输出流
 			// 向微信服务器发起请求类型 默认为POST请求 GET需要另行修改
 			String requestMethod = "POST";
 			// 服务号APPID
 			String appid = accTok.getAppid();
-			// 客户服务号开发者密码appsecret
-			// String appsecret=accTok.getAppsecret();
-			// 用户同意授权后，能获取到code
-			// String code = request.getParameter("code");
-			// 客服标识
 			// 用户唯一标识 openid
 			String openid = (String) session.getAttribute("openid");
 			log.info(openid);
-			// if (!"authdeny".equals(code) && code != null) {
-			// //获取code后,请求以下链接获取access_token,以及用户 openid
-			// String
-			// acc_url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
-			// acc_url= acc_url.replace("APPID", appid).replace("SECRET",
-			// appsecret).replace("CODE", code);
-			// //{
-			// "access_token":"ACCESS_TOKEN","expires_in":7200,"refresh_token":"REFRESH_TOKEN","openid":"OPENID","scope":"SCOPE"
-			// }
-			// JSONObject jsonObj=weixUtil.httpsRequest(acc_url,requestMethod,
-			// null);
-			// log.info(jsonObj.toString());
-			// log.info(acc_url);
-			// openid =jsonObj.getString("openid");
-			// }
 			log.info(accTok.getToken());
 			String access_token = accTok.getToken() == null ? "" : accTok
 					.getToken();
 			log.info(kf_account + appid);
-			// 获取客服未接待用户列表
-			// String
-			// url="https://api.weixin.qq.com/customservice/kfsession/getwaitcase?access_token="+access_token;
-			// String kf="{\"kf_account\":\""+kf_account+appid+"\"}";
-			// JSONObject jsonObj= weixUtil.httpsRequest(url, "GET", kf);
-			// log.info(jsonObj.toString());
 			// 发送客服请求地址
 			String requestUrl = "https://api.weixin.qq.com/customservice/kfsession/create?access_token="
 					+ access_token;
 			JSONObject json = new JSONObject();
 			json.put("kf_account", kf_account + appid);
 			json.put("openid", openid);
+			this.closeKF(kf_account + appid, openid, access_token);
 			JSONObject jsonObj = weixUtil.httpsRequest(requestUrl,requestMethod, json.toString());
 			log.info(jsonObj.toString());
 			if (jsonObj.getInt("errcode") == 0) {
@@ -146,6 +120,7 @@ public class ServiceAction extends ActionSupport{
 			JSONObject json = new JSONObject();
 			json.put("kf_account", service + appid);
 			json.put("openid", openid);
+			this.closeKF(kf_account + appid, openid, access_token);
 			JSONObject jsonObj = weixUtil.httpsRequest(requestUrl,requestMethod, json.toString());
 			log.info(jsonObj.toString());
 			String content="";
@@ -171,5 +146,17 @@ public class ServiceAction extends ActionSupport{
 		} catch (Exception e) {
 		}
 		return "closeMS";
+	}
+	
+	public void closeKF(String kf_account,String openid,String access_token){
+		WeixinUtil weixUtil = new WeixinUtil();
+		// 发送客服请求地址
+		String requestUrl = "https://api.weixin.qq.com/customservice/kfsession/close?access_token="+ access_token;
+		JSONObject json = new JSONObject();
+		String requestMethod="POST";
+		json.put("kf_account", kf_account);
+		json.put("openid", openid);
+		JSONObject jsonObj = weixUtil.httpsRequest(requestUrl,requestMethod, json.toString());
+		log.info("结束客服会话："+jsonObj.getString("errcode"));
 	}
 }

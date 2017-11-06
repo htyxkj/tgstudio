@@ -21,6 +21,7 @@
 <script type="text/javascript" src="./js/jweixin-1.2.0.js"></script>
 <script type="text/javascript">
 $(function(){
+	AndroidOriphone();
 	share();
 });
 function share(){
@@ -102,6 +103,14 @@ function fx(){
 function hidexz(){
 	$("#yindao").hide();
 }
+function AndroidOriphone(){
+	var u = navigator.userAgent;
+	if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
+		
+	} else if (u.indexOf('iPhone') > -1||u.indexOf('iPad') > -1) {//苹果手机
+		$("img[name='xiazai']").hide();
+	}
+}
 </script>
 <style type="text/css">
 *{margin:0px;padding:0px;}
@@ -135,7 +144,7 @@ body{
 		<b><s:property value="orderfc.singname"/>&nbsp;</b>
 		<span style="font-size:12px;padding-top:0.1em;"><s:property value="orderfc.name"/></span>
 		<img style="float:right;width:28px;" alt="分享" src="./img/v_fx.png" onclick="javascript:fx()">
-		<img style="float:right;width:28px;padding-right:10px;" alt="下载" src="./img/v_xz.png" onclick="javascript:xiazai('${dowUrl}${orderfc.fj_root}${orderfc.fj_name}')">
+		<img style="float:right;width:28px;padding-right:10px;" name="xiazai" alt="下载" src="./img/v_xz.png" onclick="javascript:xiazai('${dowUrl}${orderfc.fj_root}${orderfc.fj_name}')">
 		</div>
 	</div>
 	<div style="padding-top:1em;">
