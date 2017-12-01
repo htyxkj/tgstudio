@@ -116,7 +116,7 @@
 		<div class="bottom">
 			<div class="bottomDIV"><img name="xiazai" alt="下载" src="./img/one_xz.png" onclick="javascript:xiazai('${dowUrl}${orderfc.fj_root}${orderfc.fj_name}')"></div>
 			<div class="bottomDIV"><img id="bfzt" alt="播放/暂停" src="./img/one_zt.png" onclick="javascritp:playPause();"></div>
-			<div class="bottomDIV"><img alt="分享" src="./img/one_fx.png" onclick="javascript:fx()"></div>
+			<!-- <div class="bottomDIV"><img alt="分享" src="./img/one_fx.png" onclick="javascript:fx()"></div> -->
 		</div>
 		<div class="jdt">
 			<div id="timeN" class="time" style="margin-left:1em;">0:00</div>

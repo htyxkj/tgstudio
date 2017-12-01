@@ -1,5 +1,6 @@
 package org.business.action;
 
+
 import org.apache.log4j.Logger;
 import org.business.biz.ITellBiz;
 import org.business.biz.impl.TellBizImpl;
@@ -17,8 +18,8 @@ public class CallAction extends ActionSupport{
 		return phone;
 	}
 	public String call() {
-    	ITellBiz tellbiz=new TellBizImpl();
-		try {
+	   try {
+	        ITellBiz tellbiz=new TellBizImpl();
 			Tell tell=tellbiz.getOne();
 			phone=tell.getNumber();
 		} catch (Exception e) {

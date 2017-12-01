@@ -1,5 +1,11 @@
 package org.business.action;
 
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONObject;
@@ -12,6 +18,9 @@ import org.business.entity.Message;
 import org.core.accesstoken.AccessToken;
 import org.core.accesstoken.TokenThread;
 import org.core.util.WeixinUtil;
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 
 import com.opensymphony.xwork2.ActionSupport;
 /**
@@ -22,9 +31,13 @@ public class ServiceAction extends ActionSupport{
 	protected static Logger log = Logger.getLogger(InsorgAction.class);
 	private Message message=new Message();
 	private String kf_account;
-	private String code;
-	public void setCode(String code) {
-		this.code = code;
+	private String openid;
+	
+	public String getOpenid() {
+		return openid;
+	}
+	public void setOpenid(String openid) {
+		this.openid = openid;
 	}
 	public Message getMessage() {
 		return message;
@@ -39,7 +52,6 @@ public class ServiceAction extends ActionSupport{
 			TokenThread t = new TokenThread();
 			AccessToken accTok = t.accessToken;
 			HttpSession session =  ServletActionContext.getRequest().getSession();
-			log.info("session");
 			log.info(session);
 			// 向微信服务器发起请求类型 默认为POST请求 GET需要另行修改
 			String requestMethod = "POST";
@@ -85,6 +97,7 @@ public class ServiceAction extends ActionSupport{
 	 */
 	public String marketService() {
 		try {
+			log.info("openid"+openid);
 			//查询市场部客服编码
 			IInsorgBiz insorg=new InsorgBizImpl();
 			String service=insorg.getM();
@@ -97,19 +110,6 @@ public class ServiceAction extends ActionSupport{
 			// 服务号APPID
 			String appid = accTok.getAppid();
 			// 客户服务号开发者密码appsecret
-			String appsecret=accTok.getAppsecret();
-			// 用户同意授权后，能获取到code
-			String openid = "";
-			// 用户唯一标识 openid
-			 if (!"authdeny".equals(this.code) && this.code != null) {
-				 //获取code后,请求以下链接获取access_token,以及用户 openid
-				 String acc_url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
-				 acc_url= acc_url.replace("APPID", appid).replace("SECRET",appsecret).replace("CODE", code);
-				 JSONObject jsonObj=weixUtil.httpsRequest(acc_url,requestMethod,null);
-				 log.info(jsonObj.toString());
-				 log.info(acc_url);
-				 openid =jsonObj.getString("openid");
-			 }
 			log.info(accTok.getToken());
 			String access_token = accTok.getToken() == null ? "" : accTok
 					.getToken();

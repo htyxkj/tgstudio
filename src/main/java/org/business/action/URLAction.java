@@ -64,7 +64,7 @@ public class URLAction extends ActionSupport{
 			url2=URLEncoder.encode(url2,"UTF-8");
 			kefu=url1+url2+url3;
 			String marketService=service+"/marketService";
-			marketService=URLEncoder.encode(marketService,"UTF-8");
+//			marketService=URLEncoder.encode(marketService,"UTF-8");
 			marketS=url1+marketService+url3;
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
