@@ -1,13 +1,8 @@
 package org.business.action;
 
-import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -17,10 +12,6 @@ import org.business.biz.impl.InsorgBizImpl;
 import org.business.entity.Insorg;
 import org.core.accesstoken.AccessToken;
 import org.core.accesstoken.TokenThread;
-import org.core.util.SignUtil;
-import org.dom4j.Document;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -55,6 +46,7 @@ public class InsorgAction extends ActionSupport {
 			AccessToken acc=t.accessToken;
 			IInsorgBiz insorgB=new InsorgBizImpl();
 			listI=insorgB.getWxALl();
+			log.info(listI.size());
 			HttpSession session =  ServletActionContext.getRequest().getSession();
 			session.setAttribute("openid", openid);
 			kfURL=acc.getServiceURL()+"/service?kf_account=";

@@ -58,6 +58,7 @@ public class VerificationAction extends ActionSupport{
 			message.setErrmsg(result);
 			message.setErrcode("-1");
 		}
+		log.info(message.getErrcode()+":"+message.getErrmsg());
 		return "msg";
 	}
 	/**

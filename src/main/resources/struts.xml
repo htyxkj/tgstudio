@@ -29,8 +29,6 @@
 		</global-results>
          <!--  url认证  -->
         <action name="core" class="org.core.action.CoreAction" method="coreRequest">
-        	<result name="insorg" type="chain">insorg</result>
-        	<result name="marketService" type="chain">marketService</result>
         </action>
         <!-- 发送验证码 -->
         <action name="sendXcode" class="org.business.action.VerificationAction" method="sendXcode">

@@ -143,7 +143,7 @@ body{
 		<div style="font-size:20px;padding-top:0.6em;">
 		<b><s:property value="orderfc.singname"/>&nbsp;</b>
 		<span style="font-size:12px;padding-top:0.1em;"><s:property value="orderfc.name"/></span>
-		<!-- <img style="float:right;width:28px;" alt="分享" src="./img/v_fx.png" onclick="javascript:fx()"> -->
+		<img style="float:right;width:28px;" alt="分享" src="./img/v_fx.png" onclick="javascript:fx()">
 		<img style="float:right;width:28px;padding-right:10px;" name="xiazai" alt="下载" src="./img/v_xz.png" onclick="javascript:xiazai('${dowUrl}${orderfc.fj_root}${orderfc.fj_name}')">
 		</div>
 	</div>

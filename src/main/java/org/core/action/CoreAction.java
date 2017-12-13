@@ -2,12 +2,10 @@ package org.core.action;
 
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,7 +58,7 @@ public class CoreAction extends ActionSupport {
 			request.setCharacterEncoding("UTF-8");
 			String method = ServletActionContext.getRequest().getMethod();
 			if (method.equals("POST")) {// 注意全部大写
-				
+				log.info("POST");
 				TokenThread t=new TokenThread();
 				AccessToken acc=t.accessToken;
 				String service=acc.getServiceURL();
@@ -87,7 +85,7 @@ public class CoreAction extends ActionSupport {
 				// 接收方帐号
 				String toUserName =map.get("FromUserName");
 				String xml="";
-				String imgUrl="http://123.206.90.95/tgstudio/img/1501035711.png";
+				String imgUrl=service+"/img/1501035711.png";
 				if(map.get("EventKey").equals("insorg")){
 					String insorg=service+"/insorg?openid="+toUserName;
 					xml=this.toXml(toUserName, fromUserName, insorg,imgUrl);
@@ -100,6 +98,7 @@ public class CoreAction extends ActionSupport {
 				out.close();
 				out = null;
 			} else {
+				log.info("GET");
 				PrintWriter out = response.getWriter();
 				// 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
 				if (SignUtil.checkSignature(signature, timestamp, nonce)) {
