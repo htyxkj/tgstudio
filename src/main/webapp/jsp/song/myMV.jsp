@@ -101,9 +101,9 @@
 	function AndroidOriphone(){
 		var u = navigator.userAgent;
 		if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
-			
+			$("img[alt='下载']").hide();
 		} else if (u.indexOf('iPhone') > -1||u.indexOf('iPad') > -1) {//苹果手机
-			$("img[name='xiazai']").hide();
+			$("img[alt='下载']").hide();
 		}
 	}
     </script>

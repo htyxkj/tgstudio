@@ -90,7 +90,7 @@ public class OrderfromcDaoImpl extends BaseDaoImpl<Orderfromc> implements IOrder
 		ResultSet resultSet = null;
 		List<Orderfromc> listo=new ArrayList<Orderfromc>();
 		
-		String totalSQL="select count (onlyid) as onlyid from v_allorder  where ortel=? and stype=? and isdown=1";
+		String totalSQL="select count (onlyid) as onlyid from orderfromc  where ortel=? and stype=? and isdown=1";
 		statement = connection.prepareStatement(totalSQL);
 		statement.setString(1, order.getTel());
 		statement.setString(2, order.getType());
@@ -99,7 +99,7 @@ public class OrderfromcDaoImpl extends BaseDaoImpl<Orderfromc> implements IOrder
 		if(resultSet.next())
 			totalSize = resultSet.getInt("onlyid");//总条数
 		Integer rows=(page.getCurrentPage()-1)* page.getPageSize();
-		String dataSQL="select top "+page.getPageSize()+" orname,ortel,fj_root,fj_name, substring(fj_name,1,(LEN(fj_name)-CHARINDEX('.', REVERSE(fj_name)))) as singname,onlyid,stype from v_allorder where ortel=? and stype=? and isdown=1 and onlyid not in( select top "+rows+" onlyid from v_allorder where ortel=? and stype=? and isdown=1 order by mkdate desc) order by mkdate desc";
+		String dataSQL="select top "+page.getPageSize()+" orname,ortel,fj_root,fj_name, substring(fj_name,1,(LEN(fj_name)-CHARINDEX('.', REVERSE(fj_name)))) as singname,onlyid,stype from orderfromc where ortel=? and stype=? and isdown=1 and onlyid not in( select top "+rows+" onlyid from orderfromc where ortel=? and stype=? and isdown=1 order by mkdate desc) order by mkdate desc";
 		statement = connection.prepareStatement(dataSQL);
 		statement.setString(1, order.getTel());
 		statement.setString(2, order.getType());

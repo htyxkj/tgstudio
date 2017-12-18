@@ -97,26 +97,48 @@ $(function(){
             element.src = "./img/one_bf.png";
         }
 	}
+	
+	function fxMV(){
+		$("#yindao").show();
+		var element = document.getElementById('yindaoimg');
+		element.src = "./img/v_fxyd.png";
+		setTimeout("hidexz()","4000");
+	}
+	function xiazaiMV(root){
+		if(isWeiXin()){
+			$("#yindao").show();
+			var element = document.getElementById('yindaoimg');
+			element.src = "./img/v_xiazai.png";
+			setTimeout("hidexz()","4000");
+		}else{
+			window.location.href=root;
+		}
+	}
+	
 	function fx(){
 		$("#yindao").show();
+		var element = document.getElementById('yindaoimg');
+		element.src = "./img/fxyd.png";
 		setTimeout("hidexz()","4000");
 	}
 	function xiazai(root){
-		window.location.href=root;
-//		if(isWeiXin()){
-//			$("#xiazaiyd").show();
-//		}else{
-//		}
-//		setTimeout("hidexz()","4000");
+		if(isWeiXin()){
+			$("#yindao").show();
+			var element = document.getElementById('yindaoimg');
+			element.src = "./img/xiazaiyd.png";
+			setTimeout("hidexz()","4000");
+		}else{
+			window.location.href=root;
+		}
 	}
-//	function isWeiXin(){
-//		var ua = window.navigator.userAgent.toLowerCase();
-//		if(ua.match(/MicroMessenger/i) == 'micromessenger'){
-//			return true;
-//		}else{
-//			return false;
-//		}
-//	}
+	function isWeiXin(){
+		var ua = window.navigator.userAgent.toLowerCase();
+		if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	function hidexz(){
 		$("#yindao").hide();
 	}

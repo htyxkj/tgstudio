@@ -75,10 +75,33 @@
 					\[\d+\]\.singname,
 					\[\d+\]\.name,
 					\[\d+\]\.fj_root,
-					\[\d+\]\.fj_name
+					\[\d+\]\.fj_name,
+					^currentPage
+					^totalPage
 				</param>
         	</result>
         </action>
+        <!-- 用户查询往期歌曲 -->
+        <action name="onePast" class="org.business.action.PastSongsAction" method="getOnePage">
+        	<result name="onePast" type="json">
+				<param name="root">page</param>
+				<param name="includeProperties">
+					^rows\[\d+\]\.sid,
+					^rows\[\d+\]\.singname,
+					^rows\[\d+\]\.orname,
+					^rows\[\d+\]\.fj_root,
+					^rows\[\d+\]\.fj_name, 
+					^currentPage,
+					^totalPage, 
+					^fileUrl,
+					^dowUrl,
+				</param>
+			</result>
+        </action>
+        <action name="selOnePast" class="org.business.action.PastSongsAction" method="selOnePast">
+        	<result name="oneSong">jsp/song/shareSong.jsp</result>
+        </action>
+        
         <!-- 查询用户下一页的数据 -->
         <action name="nextpage" class="org.business.action.OrderfromcAction" method="nextPage">
         	<result name="nextpage" type="json">
@@ -96,7 +119,6 @@
 				</param>
 			</result>
         </action>
-        
         <action name="selectOne" class="org.business.action.OrderfromcAction" method="selOne">
         	<result name="oneSong">jsp/song/shareSong.jsp</result>
         	<result name="oneMV">jsp/song/shareMV.jsp</result>

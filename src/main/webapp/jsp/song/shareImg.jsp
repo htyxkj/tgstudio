@@ -18,6 +18,7 @@
 <link href="./img/ico.ico" rel="shortcut icon" />
 <script type="text/javascript" src="./js/jquery-3.0.0.js"></script>
 <script type="text/javascript" src="./js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="./js/shareSong.jsp.js"></script>
 <script type="text/javascript">
 	$(function(){
 		$("#yindao").hide();
@@ -72,7 +73,7 @@
 		                    title:"${orderfc.singname}", // 分享标题 
 		                    desc: "糖果录音棚", // 分享描述
 		                    link: url, // 分享链接 
-		                    imgUrl: "${fileUrl}x_logo.jpg", // 分享图标
+		                    imgUrl: "${fileUrl}/x_logo.jpg", // 分享图标
 		                    type: 'music', // 分享类型,music、video或link，不填默认为link 
 		                    dataUrl:"${fileUrl}${orderfc.fj_root}${orderfc.fj_name}", // 如果type是music或video，则要提供数据链接，默认为空 
 		                    success: function () { 
@@ -99,15 +100,12 @@
 	function hidexz(){
 		$("#yindao").hide();
 	}
-	function xiazai(root){
-		window.location.href=root;
-	}
 	function AndroidOriphone(){
 		var u = navigator.userAgent;
 		if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
 			
 		} else if (u.indexOf('iPhone') > -1||u.indexOf('iPad') > -1) {//苹果手机
-			$("img[name='xiazai']").hide();
+			$("img[alt='下载']").hide();
 		}
 	}
 </script>
@@ -134,11 +132,11 @@ body{margin:0px;padding:0px;}
 		<b><s:property value="orderfc.singname"/>&nbsp;</b>
 		<span style="font-size:12px;padding-top:0.1em;"><s:property value="orderfc.name"/></span>
 		<img style="float:right;width:28px;" alt="分享" src="./img/v_fx.png" onclick="javascript:fx()">
-		<img style="float:right;width:28px;padding-right:10px;" name="xiazai" alt="下载" src="./img/v_xz.png" onclick="javascript:xiazai('${dowUrl}${orderfc.fj_root}${orderfc.fj_name}')">
+		<img style="float:right;width:28px;padding-right:10px;" alt="下载" src="./img/v_xz.png" onclick="javascript:xiazai('${dowUrl}${orderfc.fj_root}${orderfc.fj_name}')">
 		</div>
 	</div>
 	<div class="yindao" id="yindao" >  
-		<img style="width:100%;height:100%;z-index:100;background: rgba(21,22,25,0.4);" src='./img/fxyd.png'/>
+		<img id="yindaoimg" style="width:100%;height:100%;z-index:100;background: rgba(21,22,25,0.4);" src='./img/fxyd.png'/>
 	</div>
 </body>
 </html>

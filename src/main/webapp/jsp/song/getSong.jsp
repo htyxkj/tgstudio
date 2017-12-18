@@ -46,7 +46,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 });
 		 }
 		 function getcode(tel){
-			var tel=$("#tel").val();
 		  	data={'tels':tel};
 			$.ajax({
 				type: 'post',
@@ -56,7 +55,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				dataType: 'json',
 				async: true,
 				success: function (data) { 
-				  	
 				}
 	        });
 		}

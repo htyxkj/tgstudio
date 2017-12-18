@@ -77,7 +77,7 @@
 								   '<img id="ztimg" src="./img/music.png"  style="width:36px;margin-top:15px;margin-right:8px"  onclick="javascript:playPause(this)" >'+
 								   '<s:hidden name="fj_root" value="%{fileUrl}'+row.fj_root+row.fj_name+'"></s:hidden>'+
 								   '<s:hidden name="bfzt" value="2"></s:hidden>'+
-								   '<img name="xiazai" alt="下载" src="./img/list_xz.png" style="width:36px;margin-top:15px;margin-right:8px"'+
+								   '<img   alt="下载" src="./img/list_xz.png" style="width:36px;margin-top:15px;margin-right:8px"'+
 								   'onclick="javascript:xiazai('+"'${dowUrl}"+row.fj_root+row.fj_name+"'"+')"/>'+
 								   '</div></div>'].join("");
 							$("#liebiao").append($(html));
@@ -95,9 +95,9 @@
 	function AndroidOriphone(){
 		var u = navigator.userAgent;
 		if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
-			
+			$("img[alt='下载']").hide();
 		} else if (u.indexOf('iPhone') > -1||u.indexOf('iPad') > -1) {//苹果手机
-			$("img[name='xiazai']").hide();
+			$("img[alt='下载']").hide();
 		}
 	}
     </script>
@@ -173,7 +173,7 @@ body {
 					<img id="ztimg" src="./img/music.png"  style="width:36px;margin-top:15px;margin-right:8px"  onclick="javascript:playPause(this)" >
 					<s:hidden name="fj_root" value="%{fileUrl}%{#list.fj_root}%{#list.fj_name}"></s:hidden>
 					<s:hidden name="bfzt" value="2"></s:hidden>
-					<img name="xiazai" alt="下载" src="./img/list_xz.png" style="width:36px;margin-top:15px;margin-right:8px" onclick="javascript:xiazai('${dowUrl}${list.fj_root}${list.fj_name}')"/>
+					<img alt="下载" src="./img/list_xz.png" style="width:36px;margin-top:15px;margin-right:8px" onclick="javascript:xiazai('${dowUrl}${list.fj_root}${list.fj_name}')"/>
 				</div>
 			</div>
 		</s:iterator>

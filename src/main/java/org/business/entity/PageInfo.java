@@ -10,6 +10,9 @@ public class PageInfo<T> {
 	private T condition;//添加
 	private List<T> rows;//查询数据
 	
+	private String fileUrl;
+	private String dowUrl;
+	
 	public Integer getCurrentPage() {
 		return currentPage;
 	}
@@ -48,5 +51,17 @@ public class PageInfo<T> {
 	}
 	public void setTotalPage(Integer totalPage) {
 		this.totalPage = totalPage;
+	}
+	public String getFileUrl() {
+		return fileUrl;
+	}
+	public void setFileUrl(String fileUrl) {
+		this.fileUrl = fileUrl;
+	}
+	public String getDowUrl() {
+		return dowUrl;
+	}
+	public void setDowUrl(String dowUrl) {
+		this.dowUrl = dowUrl;
 	}
 }

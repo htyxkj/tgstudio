@@ -19,6 +19,7 @@
 <link href="./css/video-js.css" rel="stylesheet">
 <script type="text/javascript" src="./js/jquery-3.0.0.js"></script>
 <script type="text/javascript" src="./js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="./js/shareSong.jsp.js"></script>
 <script type="text/javascript">
 $(function(){
 	AndroidOriphone();
@@ -72,7 +73,7 @@ function share(){
 	                    title:"${orderfc.singname}", // 分享标题 
 	                    desc: "${orderfc.name}", // 分享描述
 	                    link: url, // 分享链接 
-	                    imgUrl: "${fileUrl}x_logo.jpg", // 分享图标
+	                    imgUrl: "${fileUrl}/x_logo.jpg", // 分享图标
 	                    type: 'video', // 分享类型,music、video或link，不填默认为link 
 	                    dataUrl:"${fileUrl}${orderfc.fj_root}${orderfc.fj_name}", // 如果type是music或video，则要提供数据链接，默认为空 
 	                    success: function () { 
@@ -92,9 +93,6 @@ function share(){
 	 	}
 	});
 };	
-function xiazai(root){
-		window.location.href=root;
-}
 function fx(){
 	$("#yindao").show();
 	
@@ -108,7 +106,7 @@ function AndroidOriphone(){
 	if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
 		
 	} else if (u.indexOf('iPhone') > -1||u.indexOf('iPad') > -1) {//苹果手机
-		$("img[name='xiazai']").hide();
+		$("img[alt='下载']").hide();
 	}
 }
 </script>
@@ -143,8 +141,8 @@ body{
 		<div style="font-size:20px;padding-top:0.6em;">
 		<b><s:property value="orderfc.singname"/>&nbsp;</b>
 		<span style="font-size:12px;padding-top:0.1em;"><s:property value="orderfc.name"/></span>
-		<img style="float:right;width:28px;" alt="分享" src="./img/v_fx.png" onclick="javascript:fx()">
-		<img style="float:right;width:28px;padding-right:10px;" name="xiazai" alt="下载" src="./img/v_xz.png" onclick="javascript:xiazai('${dowUrl}${orderfc.fj_root}${orderfc.fj_name}')">
+		<img style="float:right;width:28px;" alt="分享" src="./img/v_fx.png" onclick="javascript:fxMV()">
+		<img style="float:right;width:28px;padding-right:10px;"  alt="下载" src="./img/v_xz.png" onclick="javascript:xiazaiMV('${dowUrl}${orderfc.fj_root}${orderfc.fj_name}')">
 		</div>
 	</div>
 	<div style="padding-top:1em;">
@@ -152,7 +150,7 @@ body{
 	</div>
 </div>
 	<div class="yindao" id="yindao" >  
-		<img style="width:100%;height:100%;z-index:100;background: rgba(21,22,25,0.4);" src='./img/v_fxyd.png'/>
+		<img id="yindaoimg" style="width:100%;height:100%;z-index:100;background: rgba(21,22,25,0.4);" src='./img/v_fxyd.png'/>
 	</div>
     <script src="http://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
     <script src="http://vjs.zencdn.net/5-unsafe/video.js"></script>

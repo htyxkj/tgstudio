@@ -48,8 +48,6 @@ public class VerificationAction extends ActionSupport{
 	public String sendXcode(){
 		String phone = tels;
         String content="【糖果录音棚】您好，您的验证码是：[code],验证码的有效时间为10分钟";
-        XcodeValidTool xcode=new XcodeValidTool();
-//		String result = xcode.getXcode(phone,content);
 		String result = xx.getXcode(phone,content);
 		if(result.startsWith("success")){
 			message.setErrmsg("发送成功，请注意查收短信！");

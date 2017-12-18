@@ -74,7 +74,7 @@
 		                    title:"${orderfc.singname}", // 分享标题 
 		                    desc: "糖果录音棚", // 分享描述
 		                    link: url, // 分享链接 
-		                    imgUrl: "${fileUrl}x_logo.jpg", // 分享图标
+		                    imgUrl: "${fileUrl}/x_logo.jpg", // 分享图标
 		                    type: 'music', // 分享类型,music、video或link，不填默认为link 
 		                    dataUrl:"${fileUrl}${orderfc.fj_root}${orderfc.fj_name}", // 如果type是music或video，则要提供数据链接，默认为空 
 		                    success: function () { 
@@ -99,7 +99,7 @@
 		if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
 			
 		} else if (u.indexOf('iPhone') > -1||u.indexOf('iPad') > -1) {//苹果手机
-			$("img[name='xiazai']").hide();
+			$("alt[name='下载']").hide();
 		}
 	}
 </script>
@@ -114,7 +114,7 @@
 			<img id="imgxz" class="Rotation img" src="./img/one_xuanzhuan.png"/>
 		</div>
 		<div class="bottom">
-			<div class="bottomDIV"><img name="xiazai" alt="下载" src="./img/one_xz.png" onclick="javascript:xiazai('${dowUrl}${orderfc.fj_root}${orderfc.fj_name}')"></div>
+			<div class="bottomDIV"><img alt="下载" src="./img/one_xz.png" onclick="javascript:xiazai('${dowUrl}${orderfc.fj_root}${orderfc.fj_name}')"></div>
 			<div class="bottomDIV"><img id="bfzt" alt="播放/暂停" src="./img/one_zt.png" onclick="javascritp:playPause();"></div>
 			<div class="bottomDIV"><img alt="分享" src="./img/one_fx.png" onclick="javascript:fx()"></div>
 		</div>
@@ -128,7 +128,7 @@
 		</div>
 	</div>
 	<div class="yindao" id="yindao" >  
-		<img style="width:100%;height:100%;z-index:100;background: rgba(21,22,25,0.4);" src='./img/fxyd.png'/>
+		<img id="yindaoimg" style="width:100%;height:100%;z-index:100;background: rgba(21,22,25,0.4);" src='./img/fxyd.png'/>
 	</div>
 	<audio id="audio" preload="preload" autoplay loop="loop" src="${fileUrl}${orderfc.fj_root}${orderfc.fj_name}"></audio>
 </body>

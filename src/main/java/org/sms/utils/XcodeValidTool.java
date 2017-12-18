@@ -23,8 +23,9 @@ public class XcodeValidTool extends Thread {
 		String xcode = SMSTool.createRandom(true, 5);
 		String phon = phone;
 		content=content.replaceAll("\\[code\\]", xcode);
-		String result = SendIM(phon,content);
-//		String result = "success:ok";
+		System.out.println(xcode);
+//		String result = SendIM(phon,content);
+		String result = "success:ok";
 		if(result.startsWith("success")){
 			if(_keycode.containsKey(phon)){
 				String xx = _keycode.get(phon);
