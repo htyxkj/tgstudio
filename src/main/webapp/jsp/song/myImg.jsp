@@ -64,7 +64,7 @@
 					               '</div>'+
 					               '<div class="div2">'+
 								   '<div onclick="javascript:xiangqing('+"'"+row.sid+"'"+')">'+
-								   '<div style="font-size:16px;">'+
+								   '<div style="height:1.5em;overflow:hidden;">'+
 								   row.singname+
 								   '</div>'+
 								   '<div style="color:#72726F;font-size:14px;">'+
@@ -156,7 +156,7 @@ body {
 					</div>
 					<div class="div2">
 						<div>
-							<div style="font-size:16px;">
+							<div style="height:1.5em;overflow:hidden;">
 								<s:property value="%{#list.singname}" />
 							</div>
 							<div style="color:#72726F;font-size:14px;" >

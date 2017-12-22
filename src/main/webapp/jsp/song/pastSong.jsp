@@ -16,7 +16,6 @@
 <link rel="stylesheet" href="./css/weui.min.css">
 <link rel="stylesheet" href="./css/jquery-weui.css">
 <script type="text/javascript" src="./js/jquery-3.0.0.js"></script>
-<script type="text/javascript" src="./js/shareSong.jsp.js"></script>
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script src="./js/jquery-weui.js"></script> 
 <script type="text/javascript">
@@ -45,13 +44,13 @@
 			$(obj).attr("src","./img/list_zt.png");
 		}
 	}
+	//查询按钮点击事件
 	function butClick(currentPage){
+		$("#liebiao").empty();
 		currentPage=1;//当前页数
 		totalPage=1;//总页数
 		getPast(currentPage);
-		$("#liebiao").empty();
 	}
-	//查询按钮点击事件
 	function getPast(currentPage){
 		var condition=$("#condition").val();
 		var data={'currentPage':currentPage,'condition':condition};
@@ -63,9 +62,10 @@
 			success: function (data) {
 				currentPage=data.currentPage;//当前页数
 				totalPage=data.totalPage;//总页数
+				console.log(currentPage);
+				console.log(totalPage);
 				fileUrl=data.fileUrl;
-				dowUrl=data.dowUrl;
-				console.log(data);
+				dowUrl=data.dowUrl; 
 				if(data.rows.length==0){
 					$("#noxz").show();
 				}
@@ -81,7 +81,7 @@
 					               '</div>'+
 					               '<div class="div2">'+
 								   '<div onclick="javascript:xiangqing('+"'"+row.sid+"'"+')">'+
-								   '<div style="font-size:16px;">'+
+								   '<div style="height:1.5em;overflow:hidden;">'+
 								   row.singname+
 								   '</div>'+
 								   '<div style="color:#72726F;font-size:14px;">'+
@@ -164,7 +164,7 @@ body {
 	width: auto;
 }
 .div2 {
-	width:calc(100% - 170px);
+	width:calc(100% - 120px);
 	float: left;
 	margin: 10px 0px 0px 10px;
 }
@@ -186,7 +186,7 @@ body {
 	<ul class="ul2">
 		<li>
 			<span class="search_t">&nbsp;&nbsp;&nbsp;&nbsp;</span>  
-			<input type="text" class="input_search_key" id="condition" name="condition" placeholder="请输入关键词直接搜索" />  
+			<input type="text" class="input_search_key" id="condition" name="condition" placeholder="请输入关键词进行搜索" />  
             <input type="button" class="search_btn" onclick="butClick(1)" value="搜索"/> 
         </li>
 	</ul>

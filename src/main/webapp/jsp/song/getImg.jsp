@@ -8,7 +8,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     <title>糖果录音棚客户封面系统</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" name="viewport">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link href="./img/ico.ico" rel="shortcut icon" />
 	<script type="text/javascript" src="./js/jquery-3.0.0.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/getSong.css" />
@@ -107,6 +110,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		.body{height: 100%;}
 		.div1{height: 100%;}
+		.input1 {
+			width:calc(100% - 60px);
+		}
     </style>
     </head>
     <body class="body">
@@ -115,12 +121,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<form id="form" action="selectAll?type=C" name="f" method="post">
 					<div class="input_outer">
 						<span class="u_user"></span>
-						<input name="tel" id="tel" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入手机号">
+						<input name="tel" id="tel" class="text input1" style="color: #FFFFFF !important;" type="text" placeholder="请输入手机号">
 					</div>
 					<div>
 						<div class="input_outer" style="width: 60%;float:left;">
 							<span class="us_uer"></span>
-							<input name="code" id="code" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;width: 60%;"value="" type="text" placeholder="请输入验证码">
+							<input name="code" id="code" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;width: 60%;"value="" type="text" placeholder="验证码">
 						</div>
 						<div style="float:right;text-align:center;width:30%;margin-top:0.1em;line-height:2.4em;font-size:5px">
 							<input type="button" class="act-but submit" value="获取" style="width:100% ;margin:0px;color:white;border:0px;height:2.4em; " onclick="javascript:selectTel(this);"/>  

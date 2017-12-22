@@ -32,7 +32,7 @@ public class PastSongsDaoImpl extends BaseDaoImpl<PastSongs> implements IPastSon
 		if(resultSet.next())
 			totalSize = resultSet.getInt("sidnum");//总条数
 		Integer rows=(page.getCurrentPage()-1)* page.getPageSize();
-		String dataSQL="select top "+page.getPageSize()+" sid,fj_root,fj_name,singname,orname from pastsongs where fj_name like ? or singname like ? or orname like ? and sid not in( select top "+rows+" sid from pastsongs where fj_name like ? or singname like ? or orname like ? order by sid desc) order by sid desc";
+		String dataSQL="select top "+page.getPageSize()+" sid,fj_root,fj_name,singname,orname from pastsongs where (fj_name like ? or singname like ? or orname like ?) and sid not in( select top "+rows+" sid from pastsongs where (fj_name like ? or singname like ? or orname like ?) order by sid desc) order by sid desc";
 		statement = connection.prepareStatement(dataSQL);
 		statement.setString(1, "%"+pastSongs.getSingname()+"%");
 		statement.setString(2, "%"+pastSongs.getSingname()+"%");

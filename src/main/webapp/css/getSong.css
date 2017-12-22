@@ -6,8 +6,8 @@
 		position: relative;
 		border: rgba(255,255,255,0.2) 2px solid !important;
 	}
-.text{
-	width: 100%;
+.text{ 
+	
 	height: 36px;
 	outline: none;
 	display: inline-block;
