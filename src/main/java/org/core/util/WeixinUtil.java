@@ -12,9 +12,23 @@ import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.core.accesstoken.AccessToken;
 import org.core.accesstoken.JsapiTicket;
@@ -24,7 +38,6 @@ import net.sf.json.JSONObject;
 /**
  * 发起https/http请求传递数据并获取结果
  * 
- * @author lizhengguo
  * @date 2017-09-08
  */
 public class WeixinUtil {
@@ -35,6 +48,42 @@ public class WeixinUtil {
 	// 获取jsapi_ticket的接口
 	public final static String jsapi_ticket_url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi";
 
+	
+	/** 
+     * 通过httpclient发起http请求并获取结果 
+     *  
+     * @param url 请求地址 
+     * @param Map 提交的数据 
+     * @return String 
+     */
+	public static String httpclient(String url,Map<String, String > map) throws Exception{
+			String strfhz = null;
+			CloseableHttpClient httpclient = HttpClients.createDefault();
+			HttpPost httpPost = new HttpPost(url);
+			CloseableHttpResponse response2 =null;
+		try {
+			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+			//设置参数  
+	        Iterator iterator = map.entrySet().iterator();  
+	        while(iterator.hasNext()){  
+	            Entry<String,String> elem = (Entry<String, String>) iterator.next();  
+	            nvps.add(new BasicNameValuePair(elem.getKey(),elem.getValue()));  
+	        }
+	        HttpEntity entity = new UrlEncodedFormEntity(nvps,"UTF-8");//设置编码，防止中午乱码
+			httpPost.setEntity(entity);
+			response2 = httpclient.execute(httpPost);
+		    HttpEntity entity2 = response2.getEntity();
+		    strfhz=EntityUtils.toString(entity2);
+		}catch(Exception e){
+			log.info(e.toString());
+		}finally {
+			response2.close();
+		}
+        return strfhz;
+	}
+	
+	
+	
 	/**
 	 * 发起https请求并获取结果
 	 * 

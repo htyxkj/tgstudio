@@ -4,6 +4,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
 import org.apache.log4j.Logger;
+import org.business.quartzPackage.SMSRecord;
 import org.business.quartzPackage.WeiXinChat;
 import org.core.accesstoken.TokenThread;
 import org.quartz.QuartzManager;
@@ -22,6 +23,7 @@ public class InitServlet extends HttpServlet{
         	new Thread(new TokenThread()).start();
         	log.info("InitServlet init() 启动初始化方法，创建quartz定时任务,定时获取聊天记录...");
         	QuartzManager.addJob("getJL",WeiXinChat.class , "0 0 0 * * ?");//0 0 0 * * ?
+//        	QuartzManager.addJob("getSMSJL",SMSRecord.class , "0 28 17 * * ?");//0 0 0 * * ?
         	QuartzManager.startJobs();
     }
 }

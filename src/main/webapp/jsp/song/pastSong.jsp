@@ -174,8 +174,8 @@ body {
 	float: left;
 	padding: 10px 10px 10px 10px;
 }
-.input_search_key{ float:left; width:65%; height:18px; padding:3px; margin-right:5px; border:1px solid #cccccc; line-height:18px; background:#FFFFFF;}
-.search_btn{ float:left; width:68px; height:26px; overflow:hidden; border:1px solid #cccccc; text-align:center; color:#AACD06; letter-spacing:5px; cursor:pointer; font-weight:bold;}
+.input_search_key{ float:left; width:65%; height:25px; padding:3px; margin-right:5px; border:1px solid #cccccc; line-height:18px; background:#FFFFFF;}
+.search_btn{ float:left; width:68px; height:33px; overflow:hidden; border:1px solid #cccccc; text-align:center; color:#AACD06; letter-spacing:5px; cursor:pointer; font-weight:bold;}
 .search_t{ float:left; width:5%; line-height:26px; color:#AACD06;}      
 </style>
 </head>

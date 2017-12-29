@@ -1,10 +1,23 @@
 package org.business.action;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
+
 import javax.servlet.http.HttpSession;
+
+import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.business.biz.IPhonelogBiz;
+import org.business.biz.impl.PhonelogBizImpl;
 import org.business.entity.Message;
+import org.business.entity.Phonelog;
+import org.business.quartzPackage.WeiXinChat;
+import org.core.util.WeixinUtil;
 import org.sms.utils.XcodeValidTool;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -16,13 +29,6 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 public class VerificationAction extends ActionSupport{
 	HttpSession session =  ServletActionContext.getRequest().getSession();
-	public static XcodeValidTool xx;
-	static{
-		if(xx==null){
-			xx = new XcodeValidTool();
-			xx.start();
-		}
-	}
 	protected static Logger log = Logger.getLogger(VerificationAction.class);
 	private String tels;
 	private String xcode;
@@ -46,17 +52,37 @@ public class VerificationAction extends ActionSupport{
 	 * @return
 	 */
 	public String sendXcode(){
-		String phone = tels;
-        String content="【糖果录音棚】您好，您的验证码是：[code],验证码的有效时间为10分钟";
-		String result = xx.getXcode(phone,content);
-		if(result.startsWith("success")){
-			message.setErrmsg("发送成功，请注意查收短信！");
-			message.setErrcode("0");
-		}else{
-			message.setErrmsg(result);
-			message.setErrcode("-1");
+		try {
+			IPhonelogBiz phonelog = new PhonelogBizImpl();
+			Locale locale = Locale.getDefault();  
+			ResourceBundle bundle = ResourceBundle.getBundle("token", locale);
+			String url = bundle.getString("smsUrl");
+			String requestUrl = url+"xcode";
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("tels", tels);
+			map.put("title", "糖果录音棚");
+			map.put("fhxcode", "0");
+			String jsonStr=WeixinUtil.httpclient(requestUrl, map);
+			JSONObject jsonObj=JSONObject.fromObject(jsonStr);
+			if(jsonObj.getInt("type")==0){
+				String code=jsonObj.getString("xcode");
+				Phonelog phone = new Phonelog();
+		        //往下取整 1.9=> 1.0
+		        long floorValue = new Date().getTime();
+				phone.setOid(""+floorValue);
+				phone.setTel(tels);
+				phone.setContent("【糖果录音棚】您好，您的验证码是："+code+",验证码的有效时间为10分钟");
+				phonelog.addChat(phone);
+				message.setErrmsg("发送成功，请注意查收短信！");
+				message.setErrcode("0");
+			}else{
+				message.setErrmsg("短信发送失败!");
+				message.setErrcode("-1");
+			}
+			log.info(message.getErrcode()+":"+message.getErrmsg());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		log.info(message.getErrcode()+":"+message.getErrmsg());
 		return "msg";
 	}
 	/**
@@ -64,41 +90,22 @@ public class VerificationAction extends ActionSupport{
 	 */
 	public String checkXcode(){
 		try {
-			String xcode1=null;
-			if(xx._keycode.containsKey(tels))
-				xcode1 = xx._keycode.get(tels);
-			if(xcode1==null){
-				log.info("请重新获取注册码！");
-				message.setErrmsg("请重新获取注册码！");
-				message.setErrcode("-1");
-				return "msg";
-			}
-			long edt=0;
-			if(xx._keycodeValidt.containsKey(tels+"_"+xcode1))
-				edt = xx._keycodeValidt.get(tels+"_"+xcode1);
-			long n1 = XcodeValidTool.getNow();
-			if(n1>edt){
-				log.info("注册码已过期！");
-				message.setErrmsg("注册码已过期！");
-				message.setErrcode("-1");
-				return "msg";
-			}
-			if(xcode.equals(xcode1)){
-				if(xx._keycode.containsKey(tels))
-					xx._keycode.remove(tels);
-				if(xx._keycodeValidt.containsKey(tels+"_"+xcode))
-					xx._keycodeValidt.remove(tels+"_"+xcode);
-				log.info("验证码通过");
-				session.setAttribute("tel", tels);
-				message.setErrmsg("验证码通过！");
+			Locale locale = Locale.getDefault();  
+			ResourceBundle bundle = ResourceBundle.getBundle("token", locale);
+			String url = bundle.getString("smsUrl");
+			String requestUrl = url+"ckxcode";
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("tels", tels);
+			map.put("xcode", xcode);
+			String jsonStr=WeixinUtil.httpclient(requestUrl, map);
+			JSONObject jsonObj=JSONObject.fromObject(jsonStr);
+			if(jsonObj.getInt("type")==0){
+				this.session.setAttribute("tel", this.tels);
+				message.setErrmsg("验证码通过");
 				message.setErrcode("0");
-				return "msg";
-			}
-			else{
-				log.info("验证码不通过");
-				message.setErrmsg("验证码输入错误！");
+			}else{
+				message.setErrmsg(jsonObj.getString("info"));
 				message.setErrcode("-1");
-				return"msg";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
