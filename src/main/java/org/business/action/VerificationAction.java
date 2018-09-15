@@ -8,8 +8,6 @@ import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpSession;
 
-import net.sf.json.JSONObject;
-
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.business.biz.IPhonelogBiz;
@@ -20,6 +18,7 @@ import org.business.quartzPackage.WeiXinChat;
 import org.core.util.WeixinUtil;
 import org.sms.utils.XcodeValidTool;
 
+import com.alibaba.fastjson.JSONObject;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -63,8 +62,8 @@ public class VerificationAction extends ActionSupport{
 			map.put("title", "糖果录音棚");
 			map.put("fhxcode", "0");
 			String jsonStr=WeixinUtil.httpclient(requestUrl, map);
-			JSONObject jsonObj=JSONObject.fromObject(jsonStr);
-			if(jsonObj.getInt("type")==0){
+			JSONObject jsonObj=JSONObject.parseObject(jsonStr);
+			if(jsonObj.getIntValue("type")==0){
 				String code=jsonObj.getString("xcode");
 				Phonelog phone = new Phonelog();
 		        //往下取整 1.9=> 1.0
@@ -90,6 +89,7 @@ public class VerificationAction extends ActionSupport{
 	 */
 	public String checkXcode(){
 		try {
+			this.session.setAttribute("tel", "18310009189");
 			Locale locale = Locale.getDefault();  
 			ResourceBundle bundle = ResourceBundle.getBundle("token", locale);
 			String url = bundle.getString("smsUrl");
@@ -98,9 +98,9 @@ public class VerificationAction extends ActionSupport{
 			map.put("tels", tels);
 			map.put("xcode", xcode);
 			String jsonStr=WeixinUtil.httpclient(requestUrl, map);
-			JSONObject jsonObj=JSONObject.fromObject(jsonStr);
-			if(jsonObj.getInt("type")==0){
-				this.session.setAttribute("tel", this.tels);
+			JSONObject jsonObj=JSONObject.parseObject(jsonStr);
+			if(jsonObj.getIntValue("type")==0){
+				this.session.setAttribute("tel", "18310009189");
 				message.setErrmsg("验证码通过");
 				message.setErrcode("0");
 			}else{

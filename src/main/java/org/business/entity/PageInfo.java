@@ -7,12 +7,11 @@ public class PageInfo<T> {
 	private Integer pageSize;//每页条数
 	private Integer totalSize;//总条数
 	private Integer totalPage;//总页数
-	private T condition;//添加
+	private T condition;//条件
 	private List<T> rows;//查询数据
-	
 	private String fileUrl;
 	private String dowUrl;
-	
+
 	public Integer getCurrentPage() {
 		return currentPage;
 	}

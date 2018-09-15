@@ -1,12 +1,15 @@
 package org;
 
-import java.util.Date;
+import org.business.entity.WxMenuResult;
+
+import com.alibaba.fastjson.JSON;
+
+
 
 public class Test {
 	 public static void main(String[] args) {
-		 	double doubleTime = (Math.floor(System.currentTimeMillis() / 60000L));
-	        //往下取整 1.9=> 1.0
-	        long floorValue = new Double(doubleTime).longValue()*60;
-	        System.out.println(new Date().getTime());
-	    }
+	 	String json="{\"menu\":{\"button\":[{\"name\":\"公司介绍\",\"sub_button\":[{\"type\":\"view\",\"name\":\"官方网站\",\"url\":\"http://www.tangostudio.cn/\",\"sub_button\":[]},{\"type\":\"click\",\"name\":\"商务合作\",\"key\":\"marketService\",\"sub_button\":[]}]}]}}";
+	 	WxMenuResult sjon = JSON.parseObject(json, WxMenuResult.class);
+	 	System.out.println(sjon);
+    }
 }

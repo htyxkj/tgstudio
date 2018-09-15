@@ -3,8 +3,8 @@ package org.business.quartzPackage;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+
+
 
 import org.apache.log4j.Logger;
 import org.business.biz.IWxchatBiz;
@@ -16,6 +16,9 @@ import org.core.util.WeixinUtil;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 
 
@@ -58,9 +61,9 @@ public class WeiXinChat implements Job{
 		JSONObject jsonObj = WeixinUtil.httpsRequest(requestUrl, "POST", otputStr);
 		log.info(jsonObj);
 		if(jsonObj.containsKey("number"))
-		if(jsonObj.getInt("number")==10000){
+		if(jsonObj.getIntValue("number")==10000){
 			//可能还有数据为获取
-			this.getChatRecord(requestUrl,requestMethod,otputStr, starttime, endtime, jsonObj.getInt("msgid"),token);
+			this.getChatRecord(requestUrl,requestMethod,otputStr, starttime, endtime, jsonObj.getIntValue("msgid"),token);
 		}
 		//opercode	操作码，2002（客服发送信息），2003（客服接收消息）
 		if(jsonObj.containsKey("recordlist")){
@@ -101,7 +104,7 @@ public class WeiXinChat implements Job{
 		String requestUrl="https://api.weixin.qq.com/cgi-bin/user/info?access_token="+token+"&openid="+openid+"&lang=zh_CN";
 		String requestMethod="GET";
 		JSONObject jsonobj = WeixinUtil.httpsRequest(requestUrl, requestMethod, "");
-		if(jsonobj.has("nickname")){
+		if(jsonobj.containsKey("nickname")){
 			return jsonobj.getString("nickname");
 		}
 		return "";

@@ -189,7 +189,7 @@ body {
 		<div id="wan" class="weui-infinite-scroll" style="display:none;font-size:12px;color:#787878;">
 				----------我是有底线的----------
 		</div>
-		<audio  id="audio" src=""></audio>
+		<audio  id="audio"></audio>
 <script type="text/javascript">
 var loading = false;
 $(document.body).infinite().on("infinite", function() {
@@ -205,6 +205,7 @@ $(document.body).infinite().on("infinite", function() {
 	currentPage=currentPage+1;
 	loading=true;
 	getpage(currentPage);
+	alert();
 	loading=false;
 	$("#jiazhai").hide();
 });

@@ -8,7 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import net.sf.json.JSONObject;
+
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
@@ -22,6 +22,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.alibaba.fastjson.JSONObject;
 import com.opensymphony.xwork2.ActionSupport;
 /**
  * 连接客服会话
@@ -73,7 +74,7 @@ public class ServiceAction extends ActionSupport{
 			this.closeKF(kf_account + appid, openid, access_token);
 			JSONObject jsonObj = weixUtil.httpsRequest(requestUrl,requestMethod, json.toString());
 			log.info(jsonObj.toString());
-			if (jsonObj.getInt("errcode") == 0) {
+			if (jsonObj.getIntValue("errcode") == 0) {
 				// 发送问候语
 				String whUrl = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token="
 						+ access_token;
@@ -124,11 +125,11 @@ public class ServiceAction extends ActionSupport{
 			JSONObject jsonObj = weixUtil.httpsRequest(requestUrl,requestMethod, json.toString());
 			log.info(jsonObj.toString());
 			String content="";
-			if (jsonObj.getInt("errcode") == 0) {
+			if (jsonObj.getIntValue("errcode") == 0) {
 				content="您好，很高兴为您服务!";
-			}else if(jsonObj.getInt("errcode") == 65415){
+			}else if(jsonObj.getIntValue("errcode") == 65415){
 				content="当前指定客服未在线，请您稍后再来!";
-			}else if(jsonObj.getInt("errcode") == 65414){
+			}else if(jsonObj.getIntValue("errcode") == 65414){
 				content="您当前正在被其他客服接待,请回复“转接+店名”,客服稍后会为您服务!";
 			}
 			// 发送问候语

@@ -33,7 +33,8 @@ import org.apache.log4j.Logger;
 import org.core.accesstoken.AccessToken;
 import org.core.accesstoken.JsapiTicket;
 
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
+
 
 /**
  * 发起https/http请求传递数据并获取结果
@@ -136,7 +137,7 @@ public class WeixinUtil {
 			inputStream.close();
 			inputStream = null;
 			httpUrlConn.disconnect();
-			jsonObject = JSONObject.fromObject(buffer.toString());
+			jsonObject = JSONObject.parseObject(buffer.toString());
 		} catch (ConnectException ce) {
 			log.error("Weixin服务器连接超时。");
 		} catch (Exception e) {
@@ -197,7 +198,7 @@ public class WeixinUtil {
 			inputStream.close();
 			inputStream = null;
 			httpUrlConn.disconnect();
-			jsonObject = JSONObject.fromObject(buffer.toString());
+			jsonObject = JSONObject.parseObject(buffer.toString());
 		} catch (ConnectException ce) {
 			log.error("Weixin服务器连接超时。");
 		} catch (Exception e) {
@@ -225,12 +226,12 @@ public class WeixinUtil {
 			try {
 				accessToken = new AccessToken();
 				accessToken.setToken(jsonObject.getString("access_token"));
-				accessToken.setExpiresIn(jsonObject.getInt("expires_in"));
+				accessToken.setExpiresIn(jsonObject.getIntValue("expires_in"));
 			} catch (Exception e) {
 				accessToken = new AccessToken();
 				accessToken.setToken(jsonObject.getString("errcode"));
 				// 获取token失败
-				log.error("获取token失败 errcode:{" + jsonObject.getInt("errcode")
+				log.error("获取token失败 errcode:{" + jsonObject.getIntValue("errcode")
 						+ "} errmsg:{" + jsonObject.getString("errmsg") + "}");
 			}
 		}
@@ -254,13 +255,13 @@ public class WeixinUtil {
 				jsapiTicket = new JsapiTicket();
 				jsapiTicket.setErrcode(jsonObject.getString("errcode"));
 				jsapiTicket.setTicket(jsonObject.getString("ticket"));
-				jsapiTicket.setExpires_in(jsonObject.getInt("expires_in"));
+				jsapiTicket.setExpires_in(jsonObject.getIntValue("expires_in"));
 			} catch (Exception e) {
 				jsapiTicket = new JsapiTicket();
 				jsapiTicket.setErrcode(jsonObject.getString("errcode"));
 				// 获取token失败
 				log.error("获取jsapiTicket失败 errcode:{"
-						+ jsonObject.getInt("errcode") + "} errmsg:{"
+						+ jsonObject.getIntValue("errcode") + "} errmsg:{"
 						+ jsonObject.getString("errmsg") + "}");
 			}
 		}

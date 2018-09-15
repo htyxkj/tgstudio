@@ -9,6 +9,14 @@
     <constant name="struts.i18n.reload" value="false" />
 
 	<package name="default" extends="json-default" namespace="/">
+		<!-- 错误信息 --> 
+        <global-results>
+	        <result name="msg" type="json">
+				<param name="root">message</param>
+			</result>
+			<result name="error">jsp/error.jsp</result>
+		</global-results>
+	
 		<!-- <action name="xcode" class="com.bip.base.action.SMSAction" method="sendXcode">
 			<result name="msg" type="json">
 				<param name="root">message</param>
@@ -20,16 +28,8 @@
 			</result>
         </action>
          -->
-         
-         <global-results>
-	        <result name="msg" type="json">
-				<param name="root">message</param>
-			</result>
-			<result name="error">jsp/error.jsp</result>
-		</global-results>
-         <!--  url认证  -->
-        <action name="core" class="org.core.action.CoreAction" method="coreRequest">
-        </action>
+		<!--  url认证  -->
+        <action name="core" class="org.core.action.CoreAction" method="coreRequest"></action>
         <!-- 发送验证码 -->
         <action name="sendXcode" class="org.business.action.VerificationAction" method="sendXcode">
         </action>
@@ -119,11 +119,13 @@
 				</param>
 			</result>
         </action>
+        <!-- 查询单条 歌曲 MV 图片 -->
         <action name="selectOne" class="org.business.action.OrderfromcAction" method="selOne">
         	<result name="oneSong">jsp/song/shareSong.jsp</result>
         	<result name="oneMV">jsp/song/shareMV.jsp</result>
         	<result name="oneImg">jsp/song/shareImg.jsp</result>
         </action>
+        <!-- 菜单url显示界面 -->
         <action name="url" class="org.business.action.URLAction" method="getURL">
         	<result name="url">jsp/url.jsp</result>
         </action>
@@ -134,6 +136,17 @@
         	<result name="jsApiSign" type="json">
 				<param name="root">map</param>
 			</result>
+        </action>
+        <!-- 菜单操作 -->
+        <!-- 菜单操作jsp页面 -->
+        <action name="menu" class="org.business.action.MenuAction" method="menuJsp">
+        	<result name="menuJsp">jsp/menu/menu.jsp</result>
+        </action>
+        <action name="saveMenu" class="org.business.action.MenuAction" method="saveMenu">
+        	<result name="menuList" type="redirectAction">
+		       <param name="actionName">menu</param>
+		       <param name="yes">${yes}</param>
+	    	</result>  
         </action>
     </package>
 </struts>
